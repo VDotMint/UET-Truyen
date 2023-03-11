@@ -17,10 +17,10 @@ class App:
             alignment=ft.MainAxisAlignment.CENTER
         )
 
-        page.add(content, nav)
+        page.add(content)
 
 
 if __name__ == '__main__':
     app = App()
-    # ft.app(target=app.run, assets_dir="assets")
-    ft.app(target=app.run, view=ft.WEB_BROWSER, assets_dir="assets")
+    ft.app(target=app.run, assets_dir="assets")
+    # ft.app(target=app.run, view=ft.WEB_BROWSER, assets_dir="assets")
