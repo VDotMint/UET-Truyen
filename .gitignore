@@ -2,4 +2,6 @@
 /shelf/
 /workspace.xml
 .vscode/
+.idea/
+test.py
 __pycache__/
