@@ -1,18 +1,18 @@
-import flet as ft
-import settings
+from settings import *
+
 
 class App:
     def __init__(self):
         pass
 
     def run(self, page: ft.Page):
-        page.title = settings.TITLE
+        page.title = TITLE
         page.bgcolor = ft.colors.WHITE
         page.vertical_alignment = ft.MainAxisAlignment.CENTER
 
         content = ft.Row(
             [
-                ft.Image(src="assets/icons/loading-animation.png"),
+                ft.image.Image(src="assets/icons/loading-animation.png"),
             ],
             alignment=ft.MainAxisAlignment.CENTER
         )
