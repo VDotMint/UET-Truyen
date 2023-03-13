@@ -1,13 +1,19 @@
-import os
-from settings import *
+"""_summary_
+    """
+import flet as ft
 
 
 class Header:
+    """_summary_
+    """
+
     def __init__(self):
         self.content = None
         self.create_content()
-        
+
     def create_content(self):
+        """_summary_
+        """
         header = ft.Container(
             ft.Container(
                 ft.Row(
@@ -61,10 +67,9 @@ class Header:
             ),
             alignment=ft.alignment.center,
             bgcolor=ft.colors.PURPLE_900,
-            height= 50,
+            height=50,
             margin=ft.margin.all(0)
         )
-        
         self.content = ft.Container(
             ft.Column(
                 [
@@ -74,4 +79,3 @@ class Header:
             alignment=ft.alignment.center,
             bgcolor=ft.colors.BLACK
         )
-

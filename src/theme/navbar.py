@@ -1,16 +1,21 @@
-import os
-
-from settings import *
+"""_summary_
+    """
+import flet as ft
 
 
 class NavBar:
+    """_summary_
+    """
+
     def __init__(self):
         self.content = None
         self.create_content()
-        
+
     def create_content(self):
+        """_summary_
+        """
         navbar = ft.Container(
-        ft.Container(
+            ft.Container(
                 ft.Row(
                     [
                         ft.Container(
@@ -47,9 +52,10 @@ class NavBar:
                                 ft.OutlinedButton(
                                     text="THỂ LOẠI",
                                     style=ft.ButtonStyle(
-                                        shape=ft.RoundedRectangleBorder(radius=2)
+                                        shape=ft.RoundedRectangleBorder(
+                                            radius=2)
                                     )
-                            )
+                                )
                             )
                         ),
                         ft.Container(
@@ -57,9 +63,10 @@ class NavBar:
                                 ft.OutlinedButton(
                                     text="XẾP HẠNG",
                                     style=ft.ButtonStyle(
-                                        shape=ft.RoundedRectangleBorder(radius=2)
+                                        shape=ft.RoundedRectangleBorder(
+                                            radius=2)
                                     )
-                            )
+                                )
                             )
                         ),
                         ft.Container(
@@ -111,10 +118,10 @@ class NavBar:
             ),
             alignment=ft.alignment.center,
             bgcolor=ft.colors.BLACK12,
-            height= 50,
+            height=50,
             margin=ft.margin.all(0)
         )
-        
+
         self.content = ft.Container(
             ft.Column(
                 [

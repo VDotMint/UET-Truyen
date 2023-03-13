@@ -1,14 +1,19 @@
-import os
-
-from settings import *
+"""_summary_
+    """
+import flet as ft
 
 
 class Footer:
+    """_summary_
+    """
+
     def __init__(self):
         self.content = None
         self.create_content()
-        
+
     def create_content(self):
+        """_summary_
+        """
         footer = ft.Container(
             ft.Container(
                 ft.Row(
@@ -16,7 +21,8 @@ class Footer:
                         ft.Column(
                             [
                                 ft.Container(
-                                    ft.Image("assets/icons/loading-animation.png", width=150)
+                                    ft.Image(
+                                        "assets/icons/loading-animation.png", width=150)
                                 ),
                                 ft.Row(
                                     [
@@ -40,11 +46,12 @@ class Footer:
                                 ),
                                 ft.Row(
                                     [
-                                    ft.OutlinedButton("Truyện tranh"),
-                                    ft.OutlinedButton("Truyen tranh online"),
-                                    ft.OutlinedButton("Đọc truyện tranh"),
-                                    ft.OutlinedButton("Truyện tranh hot"),
-                                    ft.OutlinedButton("Truyện tranh hay"),
+                                        ft.OutlinedButton("Truyện tranh"),
+                                        ft.OutlinedButton(
+                                            "Truyen tranh online"),
+                                        ft.OutlinedButton("Đọc truyện tranh"),
+                                        ft.OutlinedButton("Truyện tranh hot"),
+                                        ft.OutlinedButton("Truyện tranh hay"),
                                     ]
                                 ),
                                 ft.Row(
@@ -81,7 +88,7 @@ class Footer:
             bgcolor=ft.colors.BLACK12,
             margin=ft.margin.all(0)
         )
-        
+
         self.content = ft.Container(
             ft.Column(
                 [
