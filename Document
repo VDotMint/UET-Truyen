@@ -1,0 +1,120 @@
+Viết tiếng Ziệt cho mọi người đọc cho dễ :)))))
+Yêu cầu cơ bản:
+    - có giao diện cơ bản, tương tác được và tương tác đủ
+    - có database :) có thể lưu bằng sql, cloud, etc... lưu truyện và quản lí account
+    - không brute force cho mọi thứ :) tối ưu vào
+    - lưu asset trên cloud :) ném hết lên drive đi
+Yêu cầu chức năng:
+    - đánh giá, xếp hạng truyện
+    - recommendation system (optional)
+    - Lịch sử (optional)
+    - thiết kế animation, giao diện tương tác
+
+Đơn giản thế đã :)))
+___________________________________________________________________________________________________
+Brief:
+    Dựa trên mô tả ban đầu, ta có thể thiết kế app theo công thức ăn liền :)))
+    Vì quy mô app bé, nên xài SQL cho dễ, vì NoSQL chưa học
+    Tổ chức của app: App là một hệ thống tương đương quản lí thư viện. Qua đó, ta có thể phân tích yêu cầu cơ bản của app bằng cách referencing một thư viện
+Phân tích yêu cầu: Một thư viện cần gì
+    - credentials: một hệ thống quản lí tài khoản, người dùng.
+    - assets: các đầu sách, phải được sắp xếp và phân loại theo từng thể loại, nội dung
+    - monitor: hệ thống quản lí các tài sản của thư viện
+    - helpdesk: hệ thống tương tác giữa người dùng và assets của thư viện thông qua monitor.
+    - personalization( optional): cá nhân hóa dữ liệu trên người dùng.
+Tổ chức hệ thống:
+    Theo như phân tích trên, app thư viện thuần túy là request dữ liệu, chỉ chứa ít hoạt động khác, nên đa phần quá trình là thao tác với database
+Database:
+    User:
+       - userID: primary key
+       - authentication: key
+       - nickname <optional>: char[50]
+       - brief <optional>: text
+       - isAuthor: boolean
+    Authenticator:
+       - userID: foreign key
+       - username: char[50]
+       - email: char[50]
+       - password: char[50]
+    Book:
+       - userID: foreign key <<owner/ author of the book>>
+       - bookID: primary key
+       - name: char[50]
+       - brief: text
+       - no. of chapter: int
+       - no. of view: int
+       - date: time
+    Hashtag:
+       - bookID: foreign key
+       - hashtag: char[50] << hoặc là int bằng encoding cho tối ưu tìm kiếm >>
+    Chapter:
+       - bookID: foreign key
+       - chapterID: primary key <<auto increment>>
+       - brief: text
+       - nextChapterID: int
+       - link: text
+       - no. of view: int
+       - date: time
+     <<truyện được quản lí như một cây, nó có thể gồm các chapter, hay các vol. khác nhau chứa các chapter etc,
+        view của 1 đơn vị là tổng view của các con của nó,
+         đơn giản vì nếu thăm trang mà không đọc truyện thì cũng không tính view>>
+
+    Comment: <<Comment có thể là react luôn, nó đơn giản là một cái comment trống>>
+       - commentID: primary key
+       - userID: foreign key
+       - bookID: foreign key
+       - Liked: int <<mặc định neutral thì là comment>>
+       - comment: text
+       - time: time
+       - reponseID: int <<một comment có thể là câu trả lời của comment mà nó trỏ đến>>
+    <<comment được biểu diễn như 1 graph, sử dụng DFS để biểu diễn comment>>
+
+    History:
+       - activityID: primary key
+       - userID: foreign key
+       - bookID: foreign key
+       - time_visited: time
+Kịch bản hoạt động:
+    - User sẽ đăng nhập, nhập username/email. Hệ thống kiểm tra trên Authenticator xem user có tồn tại,
+      rồi forward đến nhập password để tránh query nhiều lần. Handle misin4 thì như mấy thường lệ
+      << chưa cần cài encoding hay mấy thuật mật mã vì đây chỉ là cái btl :) có deploy đâu >>
+        + Sau khi đăng nhập thì user query lấy in4 của user
+    - Sau khi đã đăng nhập thì có thể truy cập vào trang chính của truyện.
+        + Đầu tiên là query lấy những truyện nổi nhất
+        << view cao nhất, react tích cực nhất( mỗi react sẽ có trọng số khác nhau)>>
+        + Hiện lịch sử bản thân
+        << truy cập History query ra list 10/20/... truyện gần nhất, số lượng config trong user>>
+        + hiện library:
+        << query lấy danh sách book ra, còn hiển thị thì cứ 20 truyện/lượt>>
+    - Trên thanh tương tác, góc phải để tên user + icon để direct đến trang cá nhân hay config,
+      góc trái có thể là thanh trượt để interact, giữa có thể là thanh tìm kiếm
+    - Tìm kiếm:
+        - bằng tên: hiện bất cứ truyện nào chứa tất cả kí tự trong chuỗi theo đúng thứ tự
+        - bằng hashtag: thêm # vào đầu từ, mỗi 1 # tương đương 1 hashtag, vì nó là bao tối thiểu nên có thể tìm kiếm theo lớp,
+            cứ query hashtag từ kqua của hashtag trước
+        Kết quả tìm kiếm là danh sách bookID lấy từ database
+    - Homepage:
+        - Hiện các in4 của user, hiện history
+        - nếu isAuthor = true, hiện cả danh sách truyện của bản thân, có thể thêm thắt chi tiết như ngày, view, ...
+    - Config:
+        - mỗi user luôn personalize trang cá nhân, các option:
+            + theme: sáng/tối/ambient...
+            + cache: số truyện lưu sẵn, limit hiển thị, history...
+            + sửa brief, thay nickname, password etc...
+            + xóa account
+            ...
+Activity:
+    - Đọc truyện: lấy từ database quẳng ra cái truyện
+    - Comment, reply, react: như phần database
+    - Search truyện, hay cả user <<có thể thêm>>
+    - Có thể lưu truyện về tủ sách của bản thân, khi này database thêm UserLibrary
+Format database file:
+    User:
+        - icon <png, jpeg, ...> nhưng mà nên đưa hết về 1 định dạng
+        - config.yaml <<recommend cài hydra>>
+    Book: << về cơ bản nó là 1 cái cây ? >>
+        - cover image
+        - dir of chap, vol., ...
+    Chap:
+        - cover <<optional>>
+        - Images
