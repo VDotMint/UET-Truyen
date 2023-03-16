@@ -1,8 +1,12 @@
+"""_summary_
+    """
 import json
 import os
 
 
 class Comic:
+    """_summary_
+    """
     list_of_comics = dict()
 
     def __init__(self, comic_name, comic_id, comic_type):
@@ -12,6 +16,7 @@ class Comic:
 
     @classmethod
     def load_comic_list(cls):
+        """_summary_
+        """   
         with open(os.path.join(os.getcwd(), "assets/data/data.json"), mode="r", encoding="utf-8") as json_file:
             cls.list_of_comics = json.load(json_file)
-
