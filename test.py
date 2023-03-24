@@ -4,6 +4,7 @@ from src.theme.header import *
 from src.theme.navbar import *
 from src.theme.sub_theme.login import *
 from src.theme.sub_theme.signup import *
+from src.theme.sub_theme.recommendation import *
 
 class App:
     def __init__(self):
@@ -12,6 +13,7 @@ class App:
         self.navbar = NavBar()
         self.login = Login()
         self.signup = Signup()
+        self.recommendation = Recommendation()
 
     def run(self, page: ft.Page):
         page.title = TITLE
@@ -19,7 +21,7 @@ class App:
         page.scroll = "always"
         page.vertical_alignment = ft.MainAxisAlignment.CENTER
 
-        page.add(self.signup.content)
+        page.add(self.recommendation.content)
 
 
 if __name__ == '__main__':
