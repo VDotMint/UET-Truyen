@@ -11,8 +11,9 @@ class Recommendation:
 
     def __init__(self):
         self.content = None
-        self.create_content()
+        self.create_content
 
+    @property
     def create_content(self):
         """_summary_
         """
@@ -34,25 +35,26 @@ class Recommendation:
                                         ft.Container(
                                             ft.Text(
                                                 "Tên truyện",
-                                                size=20
+                                                size=15
                                             ),
                                             on_click=lambda e: print("Title clicked!"),
                                         ),
                                         ft.Row(
                                             [
-                                                ft.TextButton(
-                                                    text="Chapter xx",
-                                                    style=ft.ButtonStyle(
-                                                        color="#FFFFFF"
-                                                    )
+                                                ft.Container(
+                                                    ft.Text(
+                                                        "Chapter xx",
+                                                        size=12
+                                                    ),
+                                                    padding=5,
+                                                    on_click=lambda e: print("Chapter clicked!"),
                                                 ),
-                                                ft.TextButton(
-                                                    text="Thời gian",
-                                                    icon=ft.icons.TIMER,
-                                                    disabled=True,
-                                                    style=ft.ButtonStyle(
-                                                        color="#FFFFFF"
-                                                    )
+                                                ft.Container(
+                                                    ft.Text(
+                                                        "Thời gian",
+                                                        size=12
+                                                    ),
+                                                    padding=5,
                                                 ),
                                             ],
                                             alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
@@ -67,7 +69,7 @@ class Recommendation:
                         ],
                         horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                         spacing=0,
-                        width=200
+                        width=150,
                     )
                 )
             return items
@@ -102,5 +104,6 @@ class Recommendation:
                 ]
             ),
             alignment=ft.alignment.center,
-            bgcolor=ft.colors.BLACK
+            bgcolor=ft.colors.BLACK,
+            width=750
         )

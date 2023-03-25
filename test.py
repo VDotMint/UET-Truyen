@@ -6,6 +6,7 @@ from src.theme.sub_theme.login import *
 from src.theme.sub_theme.signup import *
 from src.theme.sub_theme.recommendation import *
 from src.theme.sub_theme.following import *
+from src.theme.sub_theme.top import *
 
 class App:
     def __init__(self):
@@ -16,6 +17,7 @@ class App:
         self.signup = Signup()
         self.recommendation = Recommendation()
         self.following = Following()
+        self.top = Top()
 
     def run(self, page: ft.Page):
         page.title = TITLE
@@ -23,7 +25,7 @@ class App:
         page.scroll = "always"
         page.vertical_alignment = ft.MainAxisAlignment.CENTER
 
-        page.add(self.following.content)
+        page.add(self.top.content)
 
 
 if __name__ == '__main__':

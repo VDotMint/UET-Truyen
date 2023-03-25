@@ -87,5 +87,5 @@ class Login:
                 ]
             ),
             alignment=ft.alignment.center,
-            bgcolor=ft.colors.BLACK
+            bgcolor=ft.colors.BLACK,
         )

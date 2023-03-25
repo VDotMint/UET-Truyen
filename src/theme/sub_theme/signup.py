@@ -73,5 +73,5 @@ class Signup:
                 ]
             ),
             alignment=ft.alignment.center,
-            bgcolor=ft.colors.BLACK
+            bgcolor=ft.colors.BLACK,
         )
