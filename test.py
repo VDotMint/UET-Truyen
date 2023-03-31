@@ -7,6 +7,8 @@ from src.theme.sub_theme.signup import *
 from src.theme.sub_theme.recommendation import *
 from src.theme.sub_theme.following import *
 from src.theme.sub_theme.top import *
+from src.theme.sub_theme.detailview import *
+from src.theme.sub_theme.latest import *
 
 class App:
     def __init__(self):
@@ -18,14 +20,16 @@ class App:
         self.recommendation = Recommendation()
         self.following = Following()
         self.top = Top()
+        self.detail_view = DetailView()
+        self.latest = Latest()
 
     def run(self, page: ft.Page):
         page.title = TITLE
-        page.bgcolor = ft.colors.WHITE
+        page.bgcolor = ft.colors.BLACK
         page.scroll = "always"
         page.vertical_alignment = ft.MainAxisAlignment.CENTER
 
-        page.add(self.top.content)
+        page.add(self.signup.content)
 
 
 if __name__ == '__main__':

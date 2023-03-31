@@ -5,7 +5,7 @@ from turtle import bgcolor
 import flet as ft
 
 
-class Recommendation:
+class Latest:
     """_summary_
     """
 
@@ -34,6 +34,7 @@ class Recommendation:
                                         ft.Container(
                                             ft.Text(
                                                 "Tên truyện",
+                                                color="#000000",
                                                 size=15
                                             ),
                                             on_click=lambda e: print("Title clicked!"),
@@ -63,7 +64,7 @@ class Recommendation:
                                     horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                                     alignment=ft.MainAxisAlignment.CENTER
                                 ),
-                                bgcolor=ft.colors.BLACK
+                                bgcolor=ft.colors.WHITE
                             )
                         ],
                         horizontal_alignment=ft.CrossAxisAlignment.CENTER,
@@ -83,9 +84,11 @@ class Recommendation:
                             size=30
                         ),
                         ft.Row(
-                            items(5),
+                            items(50),
                             alignment=ft.MainAxisAlignment.CENTER,
-                            spacing=10
+                            spacing=10,
+                            wrap=True,
+                            width=800
                         ),
                     ]
                 ),

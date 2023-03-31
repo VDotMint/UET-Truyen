@@ -1,5 +1,5 @@
 import flet as ft
-
+from ....src.firebase import create_user
 
 class Signup:
     def __init__(self):
@@ -7,6 +7,19 @@ class Signup:
         self.create_content()
 
     def create_content(self):
+        password = ft.TextField(
+            label="Mật khẩu"
+        )
+        email = ft.TextField(
+            label="Email"
+        )
+        re_password = ft.TextField(
+            label="Nhập lại mật khẩu"
+        )
+
+        def print_content(e):
+            print(password.value, email.value, re_password.value)
+
         signup = ft.Container(
             ft.Container(
                 ft.Column(
@@ -31,21 +44,16 @@ class Signup:
                                             weight=ft.FontWeight.BOLD,
                                             color=ft.colors.BLACK
                                         ),
-                                        ft.TextField(
-                                            label="Email"
-                                        ),
-                                        ft.TextField(
-                                            label="Mật khẩu"
-                                        ),
-                                        ft.TextField(
-                                            label="Nhập lại mật khẩu"
-                                        ),
+                                        email,
+                                        password,
+                                        re_password,
                                         ft.ElevatedButton(
                                             text="Đăng ký bằng Facebook",
-                                            bgcolor = ft.colors.BLUE,
+                                            bgcolor=ft.colors.BLUE,
                                             color=ft.colors.BLACK,
                                             icon=ft.icons.FACEBOOK,
-                                            width=305
+                                            width=305,
+                                            on_click=create_user(email.value, password.value)
                                         ),
                                         ft.ElevatedButton(
                                             text="Đăng ký bằng Google",

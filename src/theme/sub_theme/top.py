@@ -63,7 +63,7 @@ class Top:
                                                                     ft.Icon(
                                                                         name=ft.icons.REMOVE_RED_EYE,
                                                                         color="#C0C0C0",
-                                                                        size=15
+                                                                        size=12
                                                                     ),
                                                                     ft.Text(
                                                                         "100K",
