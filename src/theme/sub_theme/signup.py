@@ -1,5 +1,5 @@
 import flet as ft
-from firebase import create_user
+from pyre_base import sign_up
 
 
 class Signup:
@@ -51,7 +51,7 @@ class Signup:
                                             color=ft.colors.BLACK,
                                             icon=ft.icons.FACEBOOK,
                                             width=305,
-                                            on_click=lambda e: create_user(email.value, password.value)
+                                            on_click=lambda e: sign_up(email.value, password.value)
                                         ),
                                         ft.ElevatedButton(
                                             text="Đăng ký bằng Google",

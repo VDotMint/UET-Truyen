@@ -29,7 +29,7 @@ class App:
         page.scroll = "always"
         page.vertical_alignment = ft.MainAxisAlignment.CENTER
 
-        page.add(self.signup.content)
+        page.add(self.login.content)
 
 
 if __name__ == '__main__':

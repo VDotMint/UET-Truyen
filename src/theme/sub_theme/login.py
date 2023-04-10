@@ -1,3 +1,4 @@
+from pyre_base import sign_in
 import flet as ft
 
 
@@ -7,6 +8,12 @@ class Login:
         self.create_content()
 
     def create_content(self):
+        email = ft.TextField(
+            label="Email"
+        )
+        password = ft.TextField(
+            label="Mật khẩu"
+        )
         login = ft.Container(
             ft.Container(
                 ft.Column(
@@ -31,12 +38,9 @@ class Login:
                                             weight=ft.FontWeight.BOLD,
                                             color=ft.colors.BLACK
                                         ),
-                                        ft.TextField(
-                                            label="Email"
-                                        ),
-                                        ft.TextField(
-                                            label="Mật khẩu"
-                                        ),
+
+                                        email,
+                                        password,
                                         ft.Row(
                                             [
                                                 ft.TextButton(
@@ -52,11 +56,12 @@ class Login:
                                             text="Đăng nhập",
                                             bgcolor=ft.colors.YELLOW,
                                             color=ft.colors.WHITE,
+                                            on_click=lambda e: sign_in(email.value, password.value),
                                             width=300
                                         ),
                                         ft.ElevatedButton(
                                             text="Đăng nhập bằng Facebook",
-                                            bgcolor = ft.colors.BLUE,
+                                            bgcolor=ft.colors.BLUE,
                                             color=ft.colors.BLACK,
                                             icon=ft.icons.FACEBOOK,
                                             width=305
