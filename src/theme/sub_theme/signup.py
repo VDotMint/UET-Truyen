@@ -1,5 +1,6 @@
 import flet as ft
-from ....src.firebase import create_user
+from firebase import create_user
+
 
 class Signup:
     def __init__(self):
@@ -16,9 +17,6 @@ class Signup:
         re_password = ft.TextField(
             label="Nhập lại mật khẩu"
         )
-
-        def print_content(e):
-            print(password.value, email.value, re_password.value)
 
         signup = ft.Container(
             ft.Container(
@@ -53,7 +51,7 @@ class Signup:
                                             color=ft.colors.BLACK,
                                             icon=ft.icons.FACEBOOK,
                                             width=305,
-                                            on_click=create_user(email.value, password.value)
+                                            on_click=lambda e: create_user(email.value, password.value)
                                         ),
                                         ft.ElevatedButton(
                                             text="Đăng ký bằng Google",
