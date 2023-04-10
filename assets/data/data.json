@@ -1,14 +1,83 @@
 {
-  "Vạn Cổ Tối Cường Tông": {
-    "id": 100000,
-    "type": ["Manhua", "Xuyên Không", "Truyện Màu", "Hài Hước"]
-  },
-  "Võ Luyện Đỉnh Phong": {
-    "id": 100001,
-    "type": ["Manhua", "Xuyên Không", "Truyện Màu"]
-  },
-  "Ngã Vi Tà Đế": {
-    "id": 100002,
-    "type": ["Manhua", "Xuyên Không", "Truyện Màu", "Não To"]
-  }
+    "100000": {
+        "name": "Vạn Cổ Tối Cường Tông",
+        "aliases": [],
+        "status": "Đang tiến hành",
+        "author": "Đang cập nhật",
+        "type": [
+            "Manhua",
+            "Xuyên Không",
+            "Truyện Màu",
+            "Hài Hước"
+        ],
+        "view_count": 50341948,
+        "last_updated": "2023-04-09T20:00:34",
+        "follower_count": 218624
+    },
+    "100001": {
+        "name": "Võ Luyện Đỉnh Phong",
+        "aliases": [],
+        "status": "Đang tiến hành",
+        "author": "Đang cập nhật",
+        "type": [
+            "Action",
+            "Fantasy",
+            "Manhua",
+            "Shounen",
+            "Supernatural",
+            "Truyện Màu"
+        ],
+        "view_count": 0,
+        "last_updated": "2023-04-10T19:50:34",
+        "follower_count": 422806
+    },
+    "100002": {
+        "name": "Ngã Vi Tà Đế",
+        "aliases": [
+            "Ta Là Tà Đế"
+        ],
+        "status": "Đang tiến hành",
+        "author": "Đang cập nhật",
+        "type": [
+            "Manhua",
+            "Supernatural",
+            "Truyện Màu",
+            "Xuyên Không"
+        ],
+        "view_count": 101249317,
+        "last_updated": "2023-04-07T15:05:34",
+        "follower_count": 265130
+    },
+    "100003": {
+        "name": "Trọng Sinh Sau Tám Vạn Năm",
+        "aliases": [
+            "Trở Lại 8 Vạn Năm",
+            "Reborn 80,000 Years"
+        ],
+        "status": "Đang tiến hành",
+        "author": "Zhang Hue",
+        "type": [
+            "Manhua",
+            "Mystery",
+            "Truyện Màu",
+            "Supernatural"
+        ],
+        "view_count": 88394418,
+        "last_updated": "2023-04-09T10:27:44",
+        "follower_count": 148177
+    },
+    "100004": {
+        "name": "Đại Quản Gia Là Ma Hoàng",
+        "aliases": [],
+        "status": "Đang tiến hành",
+        "author": "Đang cập nhật",
+        "type": [
+            "Manhua",
+            "Adventure",
+            "Truyện Màu"
+        ],
+        "view_count": 0,
+        "last_updated": "2023-04-08T10:08:44",
+        "follower_count": 417359
+    }
 }
