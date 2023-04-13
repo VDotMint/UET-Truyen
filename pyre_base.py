@@ -12,7 +12,7 @@ config = {"apiKey": "AIzaSyCxdRG6EeSOUEH6J-SJwUgHqzGziHou1CE",
 
 firebase = pyrebase.initialize_app(config)
 auth = firebase.auth()
-db = firebase.database()
+
 
 def sign_in(email, password):
     try:
@@ -21,6 +21,7 @@ def sign_in(email, password):
         return user
     except HTTPError as http_error:
         print(http_error.strerror)
+
 
 def sign_up(email, password):
     try:
