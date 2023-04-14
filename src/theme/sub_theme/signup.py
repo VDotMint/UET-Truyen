@@ -1,8 +1,10 @@
 import flet as ft
-from ....src.firebase import create_user
+# from ....src.firebase import create_user
+
 
 class Signup:
-    def __init__(self):
+    def __init__(self, app):
+        self.app = app
         self.content = None
         self.create_content()
 
@@ -20,66 +22,74 @@ class Signup:
         def print_content(e):
             print(password.value, email.value, re_password.value)
 
-        signup = ft.Container(
+        def to_login(e: ft.ContainerTapEvent):
+            self.app.content.content.controls[2] = self.app.login.content
+            self.app.content.update()
+
+        self.content = ft.Container(
             ft.Container(
                 ft.Column(
                     [
-                        ft.Row(
-                            [
-                                ft.TextButton(
-                                    text="Trang chủ"
-                                ),
-                                ft.TextButton(
-                                    text="Đăng ký"
-                                )
-                            ]
+                        ft.Container(
+                            ft.Text(
+                                "Đăng ký tài khoản",
+                                size=30,
+                                weight=ft.FontWeight.BOLD,
+                                color=ft.colors.BLACK
+                            ),
+                            alignment=ft.alignment.center
                         ),
-                        ft.Row(
-                            [
-                                ft.Column(
-                                    [
-                                        ft.Text(
-                                            "Đăng ký tài khooản",
-                                            size=30,
-                                            weight=ft.FontWeight.BOLD,
-                                            color=ft.colors.BLACK
-                                        ),
-                                        email,
-                                        password,
-                                        re_password,
-                                        ft.ElevatedButton(
-                                            text="Đăng ký bằng Facebook",
-                                            bgcolor=ft.colors.BLUE,
-                                            color=ft.colors.BLACK,
-                                            icon=ft.icons.FACEBOOK,
-                                            width=305,
-                                            on_click=create_user(email.value, password.value)
-                                        ),
-                                        ft.ElevatedButton(
-                                            text="Đăng ký bằng Google",
-                                            bgcolor=ft.colors.RED,
-                                            color=ft.colors.BLACK,
-                                            width=305
-                                        )
-                                    ]
+                        ft.Container(
+                            email,
+                        ),
+                        ft.Container(
+                            password,
+                        ),
+                        ft.Container(
+                            re_password,
+                        ),
+                        ft.Container(
+                            ft.TextButton(
+                                text="Đã có tài khoản! Đăng nhập",
+                                on_click=to_login
+                            ),
+                            alignment=ft.alignment.center
+                        ),
+                        ft.Container(
+                            ft.ElevatedButton(
+                                text="Đăng ký bằng Facebook",
+                                bgcolor=ft.colors.BLUE,
+                                color=ft.colors.WHITE,
+                                icon=ft.icons.FACEBOOK,
+                                width=400,
+                                style=ft.ButtonStyle(
+                                    shape=ft.RoundedRectangleBorder(radius=2)
                                 )
-                            ],
-                            alignment=ft.MainAxisAlignment.CENTER
+                                # on_click=create_user(email.value, password.value)
+                            ),
+                        ),
+                        ft.Container(
+                            ft.ElevatedButton(
+                                text="Đăng ký bằng Google",
+                                bgcolor=ft.colors.RED,
+                                color=ft.colors.WHITE,
+                                icon=ft.icons.MAIL_ROUNDED,
+                                width=400,
+                                style=ft.ButtonStyle(
+                                    shape=ft.RoundedRectangleBorder(radius=2)
+                                )
+                            )
                         )
-                    ]
-                )
+                    ],
+                    width=400,
+                    alignment=ft.MainAxisAlignment.START
+                ),
+                width=600,
+                alignment=ft.alignment.center,
+                bgcolor=ft.colors.WHITE,
+                padding=40
             ),
             alignment=ft.alignment.center,
-            bgcolor=ft.colors.WHITE,
-            margin=ft.margin.all(0)
-        )
-
-        self.content = ft.Container(
-            ft.Column(
-                [
-                    signup
-                ]
-            ),
-            alignment=ft.alignment.center,
-            bgcolor=ft.colors.BLACK,
+            bgcolor=ft.colors.BLACK12,
+            padding=40
         )

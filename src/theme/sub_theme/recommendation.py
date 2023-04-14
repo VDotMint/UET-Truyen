@@ -1,7 +1,5 @@
 """_summary_
     """
-from turtle import bgcolor
-
 import flet as ft
 
 
@@ -68,7 +66,7 @@ class Recommendation:
                         ],
                         horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                         spacing=0,
-                        width=150,
+                        width=250,
                     )
                 )
             return items
@@ -82,12 +80,14 @@ class Recommendation:
                             color="#2980b9",
                             size=30
                         ),
+
                         ft.Row(
                             items(5),
                             alignment=ft.MainAxisAlignment.CENTER,
                             spacing=10
                         ),
-                    ]
+                    ],
+                    alignment=ft.MainAxisAlignment.CENTER
                 ),
                 alignment=ft.alignment.center,
                 padding=5
@@ -95,7 +95,7 @@ class Recommendation:
             alignment=ft.alignment.center,
             bgcolor=ft.colors.WHITE,
             margin=ft.margin.all(0),
-            width=800
+            width=1250
         )
         self.content = ft.Container(
             ft.Column(
@@ -104,6 +104,7 @@ class Recommendation:
                 ]
             ),
             alignment=ft.alignment.center,
-            bgcolor=ft.colors.BLACK,
-            width=800
+            bgcolor=ft.colors.WHITE,
+            # width=1250,
+            # height=333
         )

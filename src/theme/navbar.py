@@ -2,117 +2,140 @@
     """
 import flet as ft
 
+# ACTIVE_TEXT_COLOR = "#00ccff"
 
 class NavBar:
     """_summary_
     """
+    ACTIVE_COLOR = "#ffffff"
+    DEFAULT_COLOR = "#e0e0eb"
 
-    def __init__(self):
+    def __init__(self, app):
+        self.app = app
+        self.tabs = None
+        self.navbar = None
         self.content = None
         self.create_content()
 
     def create_content(self):
         """_summary_
         """
-        navbar = ft.Container(
-            ft.Container(
-                ft.Row(
-                    [
-                        ft.Container(
-                            ft.IconButton(
-                                icon=ft.icons.HOUSE
-                            )
-                        ),
-                        ft.Container(
-                            ft.OutlinedButton(
-                                text="HOT",
-                                style=ft.ButtonStyle(
-                                    shape=ft.RoundedRectangleBorder(radius=2)
-                                )
-                            )
-                        ),
-                        ft.Container(
-                            ft.OutlinedButton(
-                                text="THEO DÕI",
-                                style=ft.ButtonStyle(
-                                    shape=ft.RoundedRectangleBorder(radius=2)
-                                )
-                            )
-                        ),
-                        ft.Container(
-                            ft.OutlinedButton(
-                                text="LỊCH SỬ",
-                                style=ft.ButtonStyle(
-                                    shape=ft.RoundedRectangleBorder(radius=2)
-                                )
-                            )
-                        ),
-                        ft.Container(
-                            ft.PopupMenuButton(
-                                ft.OutlinedButton(
-                                    text="THỂ LOẠI",
-                                    style=ft.ButtonStyle(
-                                        shape=ft.RoundedRectangleBorder(
-                                            radius=2)
-                                    )
-                                )
-                            )
-                        ),
-                        ft.Container(
-                            ft.PopupMenuButton(
-                                ft.OutlinedButton(
-                                    text="XẾP HẠNG",
-                                    style=ft.ButtonStyle(
-                                        shape=ft.RoundedRectangleBorder(
-                                            radius=2)
-                                    )
-                                )
-                            )
-                        ),
-                        ft.Container(
-                            ft.OutlinedButton(
-                                text="TÌM TRUYỆN",
-                                style=ft.ButtonStyle(
-                                    shape=ft.RoundedRectangleBorder(radius=2)
-                                )
-                            )
-                        ),
-                        ft.Container(
-                            ft.OutlinedButton(
-                                text="CON GÁI",
-                                style=ft.ButtonStyle(
-                                    shape=ft.RoundedRectangleBorder(radius=2)
-                                )
-                            )
-                        ),
-                        ft.Container(
-                            ft.OutlinedButton(
-                                text="CON TRAI",
-                                style=ft.ButtonStyle(
-                                    shape=ft.RoundedRectangleBorder(radius=2)
-                                )
-                            )
-                        ),
-                        ft.Container(
-                            ft.OutlinedButton(
-                                text="TẢI APP",
-                                style=ft.ButtonStyle(
-                                    shape=ft.RoundedRectangleBorder(radius=2)
-                                )
-                            )
-                        ),
-                        ft.Container(
-                            ft.OutlinedButton(
-                                text="GROUP",
-                                style=ft.ButtonStyle(
-                                    shape=ft.RoundedRectangleBorder(radius=2)
-                                )
-                            )
-                        )
-                    ],
-                    alignment=ft.MainAxisAlignment.CENTER,
-                    spacing=0
+        def change_page(e: ft.ContainerTapEvent):
+            for x in self.tabs.controls:
+                x.content.bgcolor = self.DEFAULT_COLOR
+
+            e.control.bgcolor = self.ACTIVE_COLOR
+            # print(e.control.text)
+
+            if e.control.text == "TRANG CHỦ":
+                self.app.content.content.controls[2] = self.app.home.content
+            elif e.control.text == "HOT":
+                self.app.content.content.controls[2] = self.app.hot.content
+            elif e.control.text == "THEO DÕI":
+                self.app.content.content.controls[2] = self.app.following_page.content
+            elif e.control.text == "LỊCH SỬ":
+                self.app.content.content.controls[2] = self.app.history_page.content
+            elif e.control.text == "TẢI APP":
+                self.app.content.content.controls[2] = self.app.app_download_page.content
+            elif e.control.text == "GROUP":
+                self.app.content.content.controls[2] = self.app.group_info_page.content
+            elif e.control.text == "TÌM TRUYỆN":
+                self.app.content.content.controls[2] = self.app.search_page.content
+
+            self.tabs.update()
+            self.app.content.update()
+
+        self.tabs = ft.Row(
+            [
+                ft.Container(
+                    ft.FloatingActionButton(
+                        text="TRANG CHỦ",
+                        icon=ft.icons.HOUSE,
+                        shape=ft.RoundedRectangleBorder(radius=2),
+                        bgcolor=self.ACTIVE_COLOR,
+                        on_click=change_page
+                    )
                 ),
+                ft.Container(
+                    ft.FloatingActionButton(
+                        text="HOT",
+                        shape=ft.RoundedRectangleBorder(radius=2),
+                        bgcolor=self.DEFAULT_COLOR,
+                        width=100,
+                        on_click=change_page
+                    )
+                ),
+                ft.Container(
+                    ft.FloatingActionButton(
+                        text="THEO DÕI",
+                        shape=ft.RoundedRectangleBorder(radius=2),
+                        bgcolor=self.DEFAULT_COLOR,
+                        width=100,
+                        on_click=change_page
+                    )
+                ),
+                ft.Container(
+                    ft.FloatingActionButton(
+                        text="LỊCH SỬ",
+                        shape=ft.RoundedRectangleBorder(radius=2),
+                        bgcolor=self.DEFAULT_COLOR,
+                        width=100,
+                        on_click=change_page
+                    )
+                ),
+                ft.Container(
+                    ft.FloatingActionButton(
+                        text="THỂ LOẠI",
+                        shape=ft.RoundedRectangleBorder(radius=2),
+                        bgcolor=self.DEFAULT_COLOR,
+                        width=100,
+                        on_click=change_page,
+                    ),
+                ),
+                ft.Container(
+                    ft.FloatingActionButton(
+                        text="XẾP HẠNG",
+                        shape=ft.RoundedRectangleBorder(radius=2),
+                        bgcolor=self.DEFAULT_COLOR,
+                        on_click=change_page,
+                        width=100,
+                    ),
+                ),
+                ft.Container(
+                    ft.FloatingActionButton(
+                        text="TÌM TRUYỆN",
+                        shape=ft.RoundedRectangleBorder(radius=2),
+                        bgcolor=self.DEFAULT_COLOR,
+                        width=100,
+                        on_click=change_page
+                    )
+                ),
+                ft.Container(
+                    ft.FloatingActionButton(
+                        text="TẢI APP",
+                        shape=ft.RoundedRectangleBorder(radius=2),
+                        bgcolor=self.DEFAULT_COLOR,
+                        width=100,
+                        on_click=change_page
+                    )
+                ),
+                ft.Container(
+                    ft.FloatingActionButton(
+                        text="GROUP",
+                        shape=ft.RoundedRectangleBorder(radius=2),
+                        bgcolor=self.DEFAULT_COLOR,
+                        width=100,
+                        on_click=change_page
+                    )
+                )
+            ],
+            alignment=ft.MainAxisAlignment.CENTER,
+            spacing=0
+        )
+
+        self.navbar = ft.Container(
+            ft.Container(
+                self.tabs,
                 alignment=ft.alignment.center,
                 padding=5
             ),
@@ -125,9 +148,9 @@ class NavBar:
         self.content = ft.Container(
             ft.Column(
                 [
-                    navbar
+                    self.navbar
                 ]
             ),
             alignment=ft.alignment.center,
-            bgcolor=ft.colors.BLACK
+            bgcolor="#f0f0f5"
         )

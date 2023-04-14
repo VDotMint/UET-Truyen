@@ -2,90 +2,119 @@ import flet as ft
 
 
 class Login:
-    def __init__(self):
+    def __init__(self, app):
+        self.app = app
         self.content = None
         self.create_content()
 
     def create_content(self):
-        login = ft.Container(
+
+        def to_signup(e: ft.ContainerTapEvent):
+            self.app.content.content.controls[2] = self.app.signup.content
+            self.app.content.update()
+
+        def to_pwforget(e):
+            self.app.content.content.controls[2] = self.app.pwforget.content
+            self.app.content.update()
+
+        def to_home(e):
+            # # verified ##############
+            if True:
+                self.app.content.content.controls[2] = self.app.home.content
+                self.app.content.update()
+
+                self.app.log_in()
+
+        self.content = ft.Container(
             ft.Container(
                 ft.Column(
                     [
-                        ft.Row(
-                            [
-                                ft.TextButton(
-                                    text="Trang chủ"
-                                ),
-                                ft.TextButton(
-                                    text="Đăng nhập"
-                                )
-                            ]
+                        ft.Container(
+                            ft.Text(
+                                "Đăng nhập",
+                                size=30,
+                                weight=ft.FontWeight.BOLD,
+                                color=ft.colors.BLACK
+                            ),
+                            alignment=ft.alignment.center,
+                            # padding=20
                         ),
-                        ft.Row(
-                            [
-                                ft.Column(
-                                    [
-                                        ft.Text(
-                                            "Đăng nhập",
-                                            size=30,
-                                            weight=ft.FontWeight.BOLD,
-                                            color=ft.colors.BLACK
-                                        ),
-                                        ft.TextField(
-                                            label="Email"
-                                        ),
-                                        ft.TextField(
-                                            label="Mật khẩu"
-                                        ),
-                                        ft.Row(
-                                            [
-                                                ft.TextButton(
-                                                    text="Quên mật khẩu"
-                                                ),
-                                                ft.TextButton(
-                                                    text="Đăng ký mới"
-                                                )
-                                            ],
-                                            alignment=ft.MainAxisAlignment.END
-                                        ),
-                                        ft.ElevatedButton(
-                                            text="Đăng nhập",
-                                            bgcolor=ft.colors.YELLOW,
-                                            color=ft.colors.WHITE,
-                                            width=300
-                                        ),
-                                        ft.ElevatedButton(
-                                            text="Đăng nhập bằng Facebook",
-                                            bgcolor = ft.colors.BLUE,
-                                            color=ft.colors.BLACK,
-                                            icon=ft.icons.FACEBOOK,
-                                            width=305
-                                        ),
-                                        ft.ElevatedButton(
-                                            text="Đăng nhập bằng Google",
-                                            bgcolor=ft.colors.RED,
-                                            color=ft.colors.BLACK,
-                                            width=305
-                                        )
-                                    ]
-                                )
-                            ],
-                            alignment=ft.MainAxisAlignment.CENTER
-                        )
-                    ]
-                )
-            ),
-            alignment=ft.alignment.center,
-            bgcolor=ft.colors.WHITE,
-            margin=ft.margin.all(0)
-        )
+                        ft.Container(
+                            ft.TextField(
+                                label="Email"
+                            ),
+                        ),
+                        ft.Container(
+                            ft.TextField(
+                                label="Mật khẩu"
+                            ),
+                        ),
+                        ft.Container(
+                            ft.Row(
+                                [
+                                    ft.TextButton(
+                                        text="Quên mật khẩu",
+                                        on_click=to_pwforget
+                                    ),
+                                    ft.TextButton(
+                                        text="Đăng ký mới",
+                                        on_click=to_signup
+                                    )
+                                ],
+                                alignment=ft.MainAxisAlignment.SPACE_BETWEEN
+                            ),
+                            alignment=ft.alignment.center
+                        ),
+                        ft.Container(
+                            ft.ElevatedButton(
+                                text="Đăng nhập",
+                                bgcolor=ft.colors.YELLOW,
+                                color=ft.colors.BLACK,
+                                width=400,
+                                style=ft.ButtonStyle(
+                                    shape=ft.RoundedRectangleBorder(radius=2)
+                                ),
+                                on_click=to_home
 
-        self.content = ft.Container(
-            ft.Column(
-                [
-                    login
-                ]
+                            ),
+                            alignment=ft.alignment.center
+                        ),
+                        ft.Container(
+                            ft.ElevatedButton(
+                                text="Đăng nhập bằng Facebook",
+                                bgcolor=ft.colors.BLUE,
+                                color=ft.colors.WHITE,
+                                icon=ft.icons.FACEBOOK,
+                                width=400,
+                                style=ft.ButtonStyle(
+                                    shape=ft.RoundedRectangleBorder(radius=2)
+                                )
+                            ),
+                            alignment=ft.alignment.center
+                        ),
+                        ft.Container(
+                            ft.ElevatedButton(
+                                text="Đăng nhập bằng Google",
+                                bgcolor=ft.colors.RED,
+                                color=ft.colors.WHITE,
+                                width=400,
+                                icon=ft.icons.MAIL_ROUNDED,
+                                style=ft.ButtonStyle(
+                                    shape=ft.RoundedRectangleBorder(radius=2)
+                                )
+                            ),
+                            alignment=ft.alignment.center
+                        )
+                    ],
+                    width=400,
+                    alignment=ft.MainAxisAlignment.START,
+                ),
+                alignment=ft.alignment.center,
+                bgcolor=ft.colors.WHITE,
+                width=600,
+                padding=40
             ),
+            bgcolor=ft.colors.BLACK12,
             alignment=ft.alignment.center,
-            bgcolor=ft.colors.BLACK,
+            padding=40
         )
