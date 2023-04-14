@@ -11,6 +11,7 @@ class Footer:
         self.content = None
         self.create_content()
 
+
     def create_content(self):
         """_summary_
         """
@@ -22,66 +23,93 @@ class Footer:
                             [
                                 ft.Container(
                                     ft.Image(
-                                        "assets/icons/loading-animation.png", width=150)
+                                        "assets/icons/loading-animation.png",
+                                        width=250
+                                    ),
+                                    alignment=ft.alignment.center,
+                                    padding=20
                                 ),
                                 ft.Row(
                                     [
-                                        ft.TextButton(
-                                            text="Liên hệ bản quyền"
+                                        ft.Text(
+                                            "Liên hệ bản quyền",
+                                            color="#ffffff"
                                         ),
-                                        ft.TextButton(
-                                            text="Chính sách bảo mật"
+                                        ft.Text(
+                                            "Chính sách bảo mật",
+                                            color="#ffffff"
                                         ),
-                                    ]
+                                    ],
+                                    alignment=ft.MainAxisAlignment.CENTER
                                 ),
                                 ft.Container(
-                                    ft.Text("Copyright © 2022 UetTruyen")
+                                    ft.Text("Copyright © 2022 UET Truyen", color="#ffffff"),
+                                    alignment=ft.alignment.center
                                 ),
-                            ]
+
+                            ],
+                            width=600
                         ),
                         ft.Column(
                             [
                                 ft.Container(
-                                    ft.Text("Từ khóa")
+                                    ft.Text("Từ khóa", size=20,  color="#ffffff")
                                 ),
                                 ft.Row(
                                     [
-                                        ft.OutlinedButton("Truyện tranh"),
-                                        ft.OutlinedButton(
-                                            "Truyen tranh online"),
-                                        ft.OutlinedButton("Đọc truyện tranh"),
-                                        ft.OutlinedButton("Truyện tranh hot"),
-                                        ft.OutlinedButton("Truyện tranh hay"),
+                                        ft.OutlinedButton("Truyện tranh", style=ft.ButtonStyle(
+                                            shape=ft.RoundedRectangleBorder(radius=2))),
+                                        ft.OutlinedButton("Truyen tranh online", style=ft.ButtonStyle(
+                                            shape=ft.RoundedRectangleBorder(radius=2))),
+                                        ft.OutlinedButton("Đọc truyện tranh", style=ft.ButtonStyle(
+                                            shape=ft.RoundedRectangleBorder(radius=2))),
+                                        ft.OutlinedButton("Truyện tranh hot", style=ft.ButtonStyle(
+                                            shape=ft.RoundedRectangleBorder(radius=2))),
+                                        ft.OutlinedButton("Truyện tranh hay", style=ft.ButtonStyle(
+                                            shape=ft.RoundedRectangleBorder(radius=2))),
                                     ]
                                 ),
                                 ft.Row(
                                     [
-                                        ft.OutlinedButton("Truyện ngôn tình"),
-                                        ft.OutlinedButton("Manhwa"),
-                                        ft.OutlinedButton("Manga"),
-                                        ft.OutlinedButton("Manhua"),
-                                        ft.OutlinedButton("truyenqq"),
-                                        ft.OutlinedButton("mi2manga"),
-                                        ft.OutlinedButton("doctruyen3q"),
-                                        ft.OutlinedButton("toptruyen"),
+                                        ft.OutlinedButton("Truyện ngôn tình", style=ft.ButtonStyle(
+                                            shape=ft.RoundedRectangleBorder(radius=2))),
+                                        ft.OutlinedButton("Manhwa", style=ft.ButtonStyle(
+                                            shape=ft.RoundedRectangleBorder(radius=2))),
+                                        ft.OutlinedButton("Manga", style=ft.ButtonStyle(
+                                            shape=ft.RoundedRectangleBorder(radius=2))),
+                                        ft.OutlinedButton("Manhua", style=ft.ButtonStyle(
+                                            shape=ft.RoundedRectangleBorder(radius=2))),
+                                        ft.OutlinedButton("truyenqq", style=ft.ButtonStyle(
+                                            shape=ft.RoundedRectangleBorder(radius=2))),
+                                        ft.OutlinedButton("mi2manga", style=ft.ButtonStyle(
+                                            shape=ft.RoundedRectangleBorder(radius=2))),
+                                        ft.OutlinedButton("doctruyen3q", style=ft.ButtonStyle(
+                                            shape=ft.RoundedRectangleBorder(radius=2))),
+                                        ft.OutlinedButton("toptruyen", style=ft.ButtonStyle(
+                                            shape=ft.RoundedRectangleBorder(radius=2))),
                                     ]
                                 ),
                                 ft.Row(
                                     [
-                                        ft.OutlinedButton("cmanga"),
-                                        ft.OutlinedButton("vlogtruyen"),
-                                        ft.OutlinedButton("blogtruyen"),
-                                        ft.OutlinedButton("truyentranhaudio"),
-                                        ft.OutlinedButton("vcomi"),
+                                        ft.OutlinedButton("cmanga", style=ft.ButtonStyle(
+                                            shape=ft.RoundedRectangleBorder(radius=2))),
+                                        ft.OutlinedButton("vlogtruyen", style=ft.ButtonStyle(
+                                            shape=ft.RoundedRectangleBorder(radius=2))),
+                                        ft.OutlinedButton("blogtruyen", style=ft.ButtonStyle(
+                                            shape=ft.RoundedRectangleBorder(radius=2))),
+                                        ft.OutlinedButton("truyentranhaudio", style=ft.ButtonStyle(
+                                            shape=ft.RoundedRectangleBorder(radius=2))),
+                                        ft.OutlinedButton("vcomi", style=ft.ButtonStyle(
+                                            shape=ft.RoundedRectangleBorder(radius=2))),
                                     ]
                                 ),
                             ]
                         )
                     ],
-                    alignment=ft.MainAxisAlignment.CENTER,
+                    # alignment=ft.MainAxisAlignment.CENTER,
                     spacing=0
                 ),
-                alignment=ft.alignment.center,
+                # alignment=ft.alignment.center,
                 padding=5
             ),
             alignment=ft.alignment.center,

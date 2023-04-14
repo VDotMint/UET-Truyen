@@ -5,11 +5,17 @@ from turtle import bgcolor
 import flet as ft
 
 
-class Latest:
+class ListView:
     """_summary_
     """
 
-    def __init__(self):
+    LATEST = 0
+    HOT = 1
+
+    def __init__(self, name, sort_type=LATEST):
+        self.name = name
+        self.sort_type = sort_type
+
         self.content = None
         self.create_content()
 
@@ -69,7 +75,8 @@ class Latest:
                         ],
                         horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                         spacing=0,
-                        width=150,
+                        width=200,
+
                     )
                 )
             return items
@@ -79,16 +86,16 @@ class Latest:
                 ft.Column(
                     [
                         ft.Text(
-                            "Truyện đề cử",
+                            self.name,
                             color="#2980b9",
                             size=30
                         ),
                         ft.Row(
-                            items(50),
+                            items(20),
                             alignment=ft.MainAxisAlignment.CENTER,
-                            spacing=10,
+                            spacing=20,
                             wrap=True,
-                            width=800
+                            width=1000
                         ),
                     ]
                 ),
@@ -96,9 +103,9 @@ class Latest:
                 padding=5
             ),
             alignment=ft.alignment.center,
-            bgcolor=ft.colors.WHITE,
+            bgcolor=ft.colors.BLACK12,
             margin=ft.margin.all(0),
-            width=800
+            width=1000
         )
         self.content = ft.Container(
             ft.Column(
@@ -107,6 +114,7 @@ class Latest:
                 ]
             ),
             alignment=ft.alignment.center,
-            bgcolor=ft.colors.BLACK,
-            width=800
+            # bgcolor=ft.colors.BLACK,
+            width=1000,
+            padding=40
         )

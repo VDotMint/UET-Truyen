@@ -1,8 +1,11 @@
 """_summary_
     """
-from turtle import bgcolor
-
 import flet as ft
+
+ACTIVE_BG_COLOR = "#ffffff"
+BG_COLOR = "#CCCCCC"
+BORDER_COLOR = "#C0C0C0"
+ACTIVE_BORDER_COLOR = "#33cccc"
 
 
 class Top:
@@ -11,12 +14,14 @@ class Top:
 
     def __init__(self):
         self.content = None
+        self.tabs = None
         self.create_content()
 
     def create_content(self):
         """
         iterate truyện
         """
+
         def items(count):
             items = []
             for i in range(1, count + 1):
@@ -87,7 +92,7 @@ class Top:
                             alignment=ft.MainAxisAlignment.SPACE_BETWEEN
                         ),
                         border=ft.border.only(
-                            left=ft.border.BorderSide(1,"#C0C0C0"),
+                            left=ft.border.BorderSide(1, "#C0C0C0"),
                             right=ft.border.BorderSide(1, "#C0C0C0"),
                             bottom=ft.border.BorderSide(1, "#C0C0C0")
                         ),
@@ -98,70 +103,83 @@ class Top:
                 )
             return items
 
+        def change_top(e: ft.ContainerTapEvent):
+            for x in self.tabs.controls:
+                x.bgcolor = BG_COLOR
+
+            e.control.bgcolor = ACTIVE_BG_COLOR
+
+            self.tabs.update()
+
+        self.tabs = ft.Row(
+            [
+                ft.Container(
+                    ft.Text(
+                        "Top Tháng",
+                        color="#000000",
+                        size=15
+                    ),
+                    border=ft.border.only(
+                        left=ft.border.BorderSide(1, "#C0C0C0"),
+                        bottom=ft.border.BorderSide(1, "#C0C0C0"),
+                        top=ft.border.BorderSide(1, BORDER_COLOR)
+                    ),
+                    bgcolor=ACTIVE_BG_COLOR,
+                    width=97,
+                    height=50,
+                    alignment=ft.alignment.center,
+                    on_click=change_top,
+                ),
+                ft.Container(
+                    ft.Text(
+                        "Top Tuần",
+                        color="#000000",
+                        size=15
+                    ),
+                    border=ft.border.only(
+                        left=ft.border.BorderSide(1, "#C0C0C0"),
+                        bottom=ft.border.BorderSide(1, "#C0C0C0"),
+                        top=ft.border.BorderSide(1, BORDER_COLOR),
+                    ),
+                    bgcolor=BG_COLOR,
+                    width=97,
+                    height=50,
+                    alignment=ft.alignment.center,
+                    on_click=change_top,
+                ),
+                ft.Container(
+                    ft.Text(
+                        "Top Ngày",
+                        color="#000000",
+                        size=15
+                    ),
+                    border=ft.border.only(
+                        left=ft.border.BorderSide(1, "#C0C0C0"),
+                        right=ft.border.BorderSide(1, "#C0C0C0"),
+                        bottom=ft.border.BorderSide(1, "#C0C0C0"),
+                        top=ft.border.BorderSide(1, BORDER_COLOR),
+                    ),
+                    bgcolor=BG_COLOR,
+                    width=96,
+                    height=50,
+                    alignment=ft.alignment.center,
+                    on_click=change_top,
+                )
+            ],
+            spacing=0
+        )
+
         top = ft.Container(
             ft.Container(
                 ft.Column(
                     [
                         ft.Container(
-                            ft.Row(
-                                [
-                                    ft.Container(
-                                        ft.Text(
-                                            "Top Tháng",
-                                            color="#000000",
-                                            size=15
-                                        ),
-                                        border=ft.border.only(
-                                            left=ft.border.BorderSide(1, "#C0C0C0"),
-                                            bottom=ft.border.BorderSide(1, "#C0C0C0"),
-                                            top=ft.border.BorderSide(1, "purple"),
-                                        ),
-                                        width=97,
-                                        height=50,
-                                        alignment=ft.alignment.center,
-                                        on_click=lambda e: print("Top tháng clicked!"),
-                                    ),
-                                    ft.Container(
-                                        ft.Text(
-                                            "Top Tuần",
-                                            color="#000000",
-                                            size=15
-                                        ),
-                                        border=ft.border.only(
-                                            left=ft.border.BorderSide(1, "#C0C0C0"),
-                                            bottom=ft.border.BorderSide(1, "#C0C0C0"),
-                                        ),
-                                        bgcolor="#CCCCCC",
-                                        width=97,
-                                        height=50,
-                                        alignment=ft.alignment.center,
-                                        on_click=lambda e: print("Top tuần clicked!"),
-                                    ),
-                                    ft.Container(
-                                        ft.Text(
-                                            "Top Ngày",
-                                            color="#000000",
-                                            size=15
-                                        ),
-                                        border=ft.border.only(
-                                            left=ft.border.BorderSide(1, "#C0C0C0"),
-                                            right=ft.border.BorderSide(1, "#C0C0C0"),
-                                            bottom=ft.border.BorderSide(1, "#C0C0C0"),
-                                        ),
-                                        bgcolor="#CCCCCC",
-                                        width=96,
-                                        height=50,
-                                        alignment=ft.alignment.center,
-                                        on_click=lambda e: print("Top ngày clicked!"),
-                                    )
-                                ],
-                                spacing=0,
-                            ),
+                            self.tabs,
                             height=50,
                             width=300,
                         ),
                         ft.Column(
-                            items(5),
+                            items(7),
                             spacing=0
                         ),
                     ],
@@ -174,6 +192,7 @@ class Top:
             bgcolor=ft.colors.WHITE,
             margin=ft.margin.all(0)
         )
+
         self.content = ft.Container(
             ft.Column(
                 [
