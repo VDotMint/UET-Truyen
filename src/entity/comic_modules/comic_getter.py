@@ -28,13 +28,9 @@ class ComicGetters:
         return Comic.list_of_comics[str(comic_id)]["content"]
 
     @classmethod
-    def get_comic_cover_img_path(cls, comic_id):
-        return "assets/data/cover_img/" + str(comic_id) + ".jpg"
+    def get_comic_chapter_count(cls, comic_id):
+        return Comic.list_of_comics[str(comic_id)]["chapter_count"]
 
-    @classmethod
-    def get_comic_no_of_chapters(cls, comic_id):
-        comic_path = os.path.join(os.getcwd(), "assets/data/" + str(comic_id))
-        chapter_count = 0
-        for chapters in os.listdir(comic_path):
-            chapter_count += 1
-        return chapter_count - 1
+    # @classmethod
+    # def get_comic_cover_img_path(cls, comic_id):
+    #     return "assets/data/cover_img/" + str(comic_id) + ".jpg"
