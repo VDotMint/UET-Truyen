@@ -1,22 +1,24 @@
-"""_summary_
-    """
-import json
-import os
+import pyre_base
 
 
 class Comic:
-    """_summary_
-    """
-    list_of_comics = dict()
+    # Function for interacting with JSON files.
 
-    def __init__(self, comic_name, comic_id, comic_type):
-        self.comic_name = comic_name
-        self.comic_id = comic_id
-        self.comic_type = comic_type
+    list_of_comics = dict()  # Static dictionary of the comics.
 
+    # Loads the contents from the comic's JSON into memory.
+    # YOU MUST ENSURE THAT THIS FUNCTION HAS BEEN CALLED WHEN THE APP RUNS!
     @classmethod
     def load_comic_list(cls):
-        """_summary_
-        """   
-        with open(os.path.join(os.getcwd(), "assets/data/data.json"), mode="r", encoding="utf-8") as json_file:
-            cls.list_of_comics = json.load(json_file)
+        pyre_base.sign_in("21020649@vnu.edu.vn", "DummyPassword169!")
+        cls.update_local_comic_list()
+
+    @classmethod
+    def update_local_comic_list(cls):
+        cls.list_of_comics = dict(pyre_base.firebase.database().child("comics").get().val())
+
+    # Saving the comics list.
+    # @classmethod
+    # def save_comic_list(cls):
+    #     with open(os.path.join(os.getcwd(), "assets/data/data.json"), mode="w", encoding="utf-8") as json_file:
+    #         json.dump(cls.list_of_comics, json_file, indent=4, ensure_ascii=False)

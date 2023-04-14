@@ -1,14 +1,88 @@
 {
-  "Vạn Cổ Tối Cường Tông": {
-    "id": 100000,
-    "type": ["Manhua", "Xuyên Không", "Truyện Màu", "Hài Hước"]
-  },
-  "Võ Luyện Đỉnh Phong": {
-    "id": 100001,
-    "type": ["Manhua", "Xuyên Không", "Truyện Màu"]
-  },
-  "Ngã Vi Tà Đế": {
-    "id": 100002,
-    "type": ["Manhua", "Xuyên Không", "Truyện Màu", "Não To"]
-  }
+    "100000": {
+        "name": "Vạn Cổ Tối Cường Tông",
+        "aliases": [],
+        "status": "Đang tiến hành",
+        "author": "Đang cập nhật",
+        "type": [
+            "Manhua",
+            "Xuyên Không",
+            "Truyện Màu",
+            "Hài Hước"
+        ],
+        "content": "Truyện tranh Vạn Cổ Tối Cường Tông được cập nhật nhanh và đầy đủ nhất tại UET Truyen.\nBạn đọc đừng quên để lại bình luận và chia sẻ, ủng hộ NetTruyen ra các chương mới nhất của truyện Vạn Cổ Tối Cường Tông.",
+        "view_count": 50341948,
+        "last_updated": "2023-04-09T20:00:34",
+        "follower_count": 218624
+    },
+    "100001": {
+        "name": "Võ Luyện Đỉnh Phong",
+        "aliases": [],
+        "status": "Đang tiến hành",
+        "author": "Đang cập nhật",
+        "type": [
+            "Action",
+            "Fantasy",
+            "Manhua",
+            "Shounen",
+            "Supernatural",
+            "Truyện Màu"
+        ],
+        "content": "Võ đạo đỉnh phong, là cô độc, là tịch mịch, là dài đằng đẵng cầu tác, là cao xử bất thắng hàn\nPhát triển trong nghịch cảnh, cầu sinh nơi tuyệt địa, bất khuất không buông tha, mới có thể có thể phá võ chi cực đạo.\nLăng Tiêu các thí luyện đệ tử kiêm quét rác gã sai vặt Dương Khai ngẫu lấy được một bản vô tự hắc thư, từ nay về sau đạp vào dài đằng đẵng võ đạo.",
+        "view_count": 0,
+        "last_updated": "2023-04-10T19:50:34",
+        "follower_count": 422806
+    },
+    "100002": {
+        "name": "Ngã Vi Tà Đế",
+        "aliases": [
+            "Ta Là Tà Đế"
+        ],
+        "status": "Đang tiến hành",
+        "author": "Đang cập nhật",
+        "type": [
+            "Manhua",
+            "Supernatural",
+            "Truyện Màu",
+            "Xuyên Không"
+        ],
+        "content": "Truyện tranh Ngã Vi Tà Đế được cập nhật nhanh và đầy đủ nhất tại UETTruyen.\nBạn đọc đừng quên để lại bình luận và chia sẻ, ủng hộ NetTruyen ra các chương mới nhất của truyện Ta Là Tà Đế.",
+        "view_count": 101249317,
+        "last_updated": "2023-04-07T15:05:34",
+        "follower_count": 265130
+    },
+    "100003": {
+        "name": "Trọng Sinh Sau Tám Vạn Năm",
+        "aliases": [
+            "Trở Lại 8 Vạn Năm",
+            "Reborn 80,000 Years"
+        ],
+        "status": "Đang tiến hành",
+        "author": "Zhang Hue",
+        "type": [
+            "Manhua",
+            "Mystery",
+            "Truyện Màu",
+            "Supernatural"
+        ],
+        "content": "Một kẻ cực mạnh trôi dạt trong hư không và trở lại 8 vạn năm trước để trả thù",
+        "view_count": 88394418,
+        "last_updated": "2023-04-09T10:27:44",
+        "follower_count": 148177
+    },
+    "100004": {
+        "name": "Đại Quản Gia Là Ma Hoàng",
+        "aliases": [],
+        "status": "Đang tiến hành",
+        "author": "Đang cập nhật",
+        "type": [
+            "Manhua",
+            "Adventure",
+            "Truyện Màu"
+        ],
+        "content": "Truyện tranh Đại Quản Gia Là Ma Hoàng được cập nhật nhanh và đầy đủ nhất tại NetTruyen. Bạn đọc đừng quên để lại bình luận và chia sẻ, ủng hộ NetTruyen ra các chương mới nhất của truyện Đại Quản Gia Là Ma Hoàng.",
+        "view_count": 0,
+        "last_updated": "2023-04-08T10:08:44",
+        "follower_count": 417359
+    }
 }
