@@ -1,7 +1,10 @@
 """_summary_
     """
 from turtle import bgcolor
-
+from src.entity.comic import Comic
+from src.entity.comic_modules.comic_query import ComicQuery
+from src.entity.comic_modules.comic_getter import ComicGetters
+from src.entity.comic_modules.comic_image_modules import ComicImageModule
 import flet as ft
 
 
@@ -22,15 +25,15 @@ class ListView:
     def create_content(self):
         """_summary_
         """
-        def items(count):
+        def items(count, recency_comic_list):
             items = []
-            for i in range(1, count + 1):
+            for i in range(count):
                 items.append(
                     ft.Column(
                         [
                             ft.Container(
                                 ft.Image(
-                                    src="assets/data/cover_img/100000.jpg"
+                                    src=ComicImageModule.get_comic_cover_img_link(recency_comic_list[i][0])
                                 ),
                                 on_click=lambda e: print("Recommend clicked!"),
                             ),
@@ -39,7 +42,7 @@ class ListView:
                                     [
                                         ft.Container(
                                             ft.Text(
-                                                "Tên truyện",
+                                                ComicGetters.get_comic_name(recency_comic_list[i][0]),
                                                 color="#000000",
                                                 size=15
                                             ),
@@ -49,7 +52,8 @@ class ListView:
                                             [
                                                 ft.Container(
                                                     ft.Text(
-                                                        "Chapter xx",
+                                                        "Chapter " + str(ComicGetters.get_comic_chapter_count(
+                                                            recency_comic_list[i][0])),
                                                         size=12
                                                     ),
                                                     padding=5,
@@ -57,7 +61,8 @@ class ListView:
                                                 ),
                                                 ft.Container(
                                                     ft.Text(
-                                                        "Thời gian",
+                                                        ComicGetters.get_comic_last_updated_delta(
+                                                            recency_comic_list[i][0]),
                                                         size=12
                                                     ),
                                                     padding=5,
@@ -91,7 +96,7 @@ class ListView:
                             size=30
                         ),
                         ft.Row(
-                            items(20),
+                            items(len(Comic.list_of_comics), ComicQuery.sort_comics_on_recency()),
                             alignment=ft.MainAxisAlignment.CENTER,
                             spacing=20,
                             wrap=True,

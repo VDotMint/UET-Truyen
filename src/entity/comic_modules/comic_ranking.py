@@ -28,7 +28,7 @@ class ComicRanking:
             comic_view_count_pairs.append(
                 [
                     comic,
-                    int(Comic.list_of_comics[comic]["view_count"] * (random.uniform(0, 10) / random_division_coefficient))
+                    int(Comic.list_of_comics[comic]["view_count"] * (random.uniform(0, 20) / random_division_coefficient))
                 ]
             )
 

@@ -1,7 +1,8 @@
 """_summary_
     """
 from turtle import bgcolor
-
+from src.entity.comic_modules.comic_image_modules import ComicImageModule
+from src.entity.comic_modules.comic_getter import ComicGetters
 import flet as ft
 
 
@@ -11,15 +12,17 @@ class Following:
 
     def __init__(self):
         self.content = None
+        self.following_list = [100004, 100008, 100005, 100006]
+
         self.create_content()
 
     def create_content(self):
         """
         iterate truyện
         """
-        def items(count):
+        def items(count, comic_list):
             items = []
-            for i in range(1, count + 1):
+            for i in range(count):
                 items.append(
                     ft.Container(
                         ft.Row(
@@ -28,7 +31,7 @@ class Following:
                                     [
                                         ft.Container(
                                             ft.Image(
-                                                src="assets/data/cover_img/100000.jpg",
+                                                src=ComicImageModule.get_comic_cover_img_link(comic_list[i]),
                                             ),
                                             on_click=lambda e: print("Cover truyen clicked!"),
                                         ),
@@ -36,7 +39,7 @@ class Following:
                                             [
                                                 ft.Container(
                                                     ft.Text(
-                                                        "Tên truyện",
+                                                        ComicGetters.get_comic_name(comic_list[i]),
                                                         size=15,
                                                         color="#000000",
                                                     ),
@@ -44,7 +47,8 @@ class Following:
                                                 ),
                                                 ft.Container(
                                                     ft.Text(
-                                                        "Chapter xx",
+                                                        "Chapters " + str(ComicGetters.get_comic_chapter_count(
+                                                            comic_list[i])),
                                                         size=15,
                                                         color="#000000",
                                                     ),
@@ -64,7 +68,7 @@ class Following:
                                     ]
                                 ),
                                 ft.Text(
-                                    "Bao lâu trước",
+                                    ComicGetters.get_comic_last_updated_delta(comic_list[i]),
                                     size=10,
                                     color="#C0C0C0"
                                 )
@@ -111,7 +115,7 @@ class Following:
                             border=ft.border.all(1,"#C0C0C0")
                         ),
                         ft.Column(
-                            items(5),
+                            items(len(self.following_list), self.following_list),
                             spacing=0
                         ),
                     ],

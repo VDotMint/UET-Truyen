@@ -2,6 +2,7 @@
     """
 import os
 import flet as ft
+from src.entity.comic_modules.comic_image_modules import ComicImageModule
 
 
 class Chapter:
@@ -12,10 +13,11 @@ class Chapter:
         self.name = "Vạn Cổ Tối Cường Tông"
         self.chapter = 1
         self.total_chapters = 20
-        self.path = os.path.join(path, "assets/data/100000/1")
+        # self.path = os.path.join(path, "assets/data/100000/1")
 
-        self.images = os.listdir(self.path)
-        self.images = [os.path.join(self.path, f) for f in self.images]
+        # self.images = os.listdir(self.path)
+        # self.images = [os.path.join(self.path, f) for f in self.images]
+        self.images = ComicImageModule.get_comic_content_images(100000, 1)
 
         self.content = None
         self.create_content()

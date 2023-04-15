@@ -1,6 +1,9 @@
 """_summary_
     """
 import flet as ft
+from src.entity.comic_modules.comic_getter import ComicGetters
+from src.entity.comic_modules.comic_ranking import ComicRanking
+from src.entity.comic_modules.comic_image_modules import ComicImageModule
 
 ACTIVE_BG_COLOR = "#ffffff"
 BG_COLOR = "#CCCCCC"
@@ -13,8 +16,14 @@ class Top:
     """
 
     def __init__(self):
+        self.list_display = None
         self.content = None
         self.tabs = None
+
+        self.monthly_rank_list = ComicRanking.get_view_count_ranking_by_time("monthly", 10)
+        self.weekly_rank_list = ComicRanking.get_view_count_ranking_by_time("weekly", 10)
+        self.daily_rank_list = ComicRanking.get_view_count_ranking_by_time("daily", 10)
+
         self.create_content()
 
     def create_content(self):
@@ -22,9 +31,9 @@ class Top:
         iterate truyện
         """
 
-        def items(count):
+        def items(count, top_comic_list):
             items = []
-            for i in range(1, count + 1):
+            for i in range(count):
                 items.append(
                     ft.Container(
                         ft.Row(
@@ -32,13 +41,14 @@ class Top:
                                 ft.Row(
                                     [
                                         ft.Text(
-                                            "0" + str(i),
+                                            "0" + str(i + 1),
                                             color="#2980b9",
                                             size=20,
                                         ),
                                         ft.Container(
                                             ft.Image(
-                                                src="assets/data/cover_img/100000.jpg",
+                                                # src="assets/data/cover_img/100000.jpg",
+                                                src=ComicImageModule.get_comic_cover_img_link(top_comic_list[i][0])
                                             ),
                                             on_click=lambda e: print("Cover truyen clicked!"),
                                         ),
@@ -46,7 +56,7 @@ class Top:
                                             [
                                                 ft.Container(
                                                     ft.Text(
-                                                        "Tên truyện",
+                                                        ComicGetters.get_comic_name(top_comic_list[i][0]),
                                                         size=15,
                                                         color="#000000",
                                                     ),
@@ -56,7 +66,8 @@ class Top:
                                                     [
                                                         ft.Container(
                                                             ft.Text(
-                                                                "Chapter xx",
+                                                                "Chapter " + str(ComicGetters.get_comic_chapter_count(
+                                                                    top_comic_list[i][0])),
                                                                 size=15,
                                                                 color="#000000",
                                                             ),
@@ -71,7 +82,7 @@ class Top:
                                                                         size=12
                                                                     ),
                                                                     ft.Text(
-                                                                        "100K",
+                                                                        top_comic_list[i][1],
                                                                         color="#C0C0C0",
                                                                         size=15
                                                                     ),
@@ -169,6 +180,13 @@ class Top:
             spacing=0
         )
 
+        self.list_display = ft.Container(
+            ft.Column(
+                items(7, self.monthly_rank_list),
+                spacing=0
+            ),
+        )
+
         top = ft.Container(
             ft.Container(
                 ft.Column(
@@ -178,10 +196,8 @@ class Top:
                             height=50,
                             width=300,
                         ),
-                        ft.Column(
-                            items(7),
-                            spacing=0
-                        ),
+                        self.list_display
+
                     ],
                     spacing=0
                 ),

@@ -2,6 +2,7 @@
     """
 import flet as ft
 from settings import TITLE
+from src.entity.comic import Comic
 from src.theme.app_download import AppDownload
 from src.theme.following_page import FollowingPage
 from src.theme.footer import *
@@ -24,6 +25,8 @@ class App:
     """
 
     def __init__(self):
+        Comic.load_comic_list()
+
         self.account_status = False
         self.user = None
 

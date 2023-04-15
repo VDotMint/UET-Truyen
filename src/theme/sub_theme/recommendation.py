@@ -1,6 +1,8 @@
 """_summary_
     """
 import flet as ft
+from src.entity.comic_modules.comic_image_modules import ComicImageModule
+from src.entity.comic_modules.comic_getter import ComicGetters
 
 
 class Recommendation:
@@ -9,20 +11,22 @@ class Recommendation:
 
     def __init__(self):
         self.content = None
+        self.temp_comic_id_list = [100009, 100002, 100003, 100004, 100005]
+
         self.create_content()
 
     def create_content(self):
         """_summary_
         """
-        def items(count):
+        def items(count, comic_list):
             items = []
-            for i in range(1, count + 1):
+            for i in range(count):
                 items.append(
                     ft.Column(
                         [
                             ft.Container(
                                 ft.Image(
-                                    src="assets/data/cover_img/100000.jpg"
+                                    src=ComicImageModule.get_comic_cover_img_link(comic_list[i])
                                 ),
                                 on_click=lambda e: print("Recommend clicked!"),
                             ),
@@ -31,7 +35,7 @@ class Recommendation:
                                     [
                                         ft.Container(
                                             ft.Text(
-                                                "Tên truyện",
+                                                ComicGetters.get_comic_name(comic_list[i]),
                                                 size=15
                                             ),
                                             on_click=lambda e: print("Title clicked!"),
@@ -40,7 +44,8 @@ class Recommendation:
                                             [
                                                 ft.Container(
                                                     ft.Text(
-                                                        "Chapter xx",
+                                                        "Chapters " + str(ComicGetters.get_comic_chapter_count(
+                                                            comic_list[i])),
                                                         size=12
                                                     ),
                                                     padding=5,
@@ -48,7 +53,7 @@ class Recommendation:
                                                 ),
                                                 ft.Container(
                                                     ft.Text(
-                                                        "Thời gian",
+                                                        ComicGetters.get_comic_last_updated_delta(comic_list[i]),
                                                         size=12
                                                     ),
                                                     padding=5,
@@ -61,7 +66,7 @@ class Recommendation:
                                     horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                                     alignment=ft.MainAxisAlignment.CENTER
                                 ),
-                                bgcolor=ft.colors.BLACK
+                                bgcolor=ft.colors.YELLOW
                             )
                         ],
                         horizontal_alignment=ft.CrossAxisAlignment.CENTER,
@@ -82,7 +87,7 @@ class Recommendation:
                         ),
 
                         ft.Row(
-                            items(5),
+                            items(5, self.temp_comic_id_list),
                             alignment=ft.MainAxisAlignment.CENTER,
                             spacing=10
                         ),
