@@ -137,7 +137,6 @@ class Header:
                                 border_color="#ffffff",
                                 selection_color="#ffffff",
                                 filled=True,
-
                             )
                         ),
                         ft.Container(

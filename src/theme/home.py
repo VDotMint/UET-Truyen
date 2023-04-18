@@ -8,51 +8,56 @@ from src.theme.sub_theme.top import Top
 
 
 class Home:
-    def __init__(self):
+    def __init__(self, app):
         self.content = None
         self.recommendation = Recommendation()
 
-        self.latest = ListView("Truyện mới cập nhật")
-        self.following = Following()
-        self.top = Top()
-        self.history = History()
+        self.latest = ListView(app, "Truyện mới cập nhật")
+        self.following = Following(app)
+        self.top = Top(app)
+        self.history = History(app)
 
         self.create_content()
 
     def create_content(self):
         self.content = ft.Container(
-            ft.Column(
-                [
-                    self.recommendation.content,
-                    ft.Container(
-                        ft.Row(
-                            [
-                                self.latest.content,
-                                ft.Container(
-                                    ft.Column(
-                                        [
-                                            self.following.content,
-                                            self.history.content,
-                                            self.top.content,
-                                        ],
-                                        alignment=ft.MainAxisAlignment.START,
-                                        spacing=40
-
+            ft.Container(
+                ft.Column(
+                    [
+                        self.recommendation.content,
+                        ft.Container(
+                            ft.Row(
+                                [
+                                    ft.Container(
+                                        self.latest.content,
+                                        height=1460
                                     ),
-                                    # bgcolor="#000000",
-                                    height=1670
+                                    ft.Container(
+                                        ft.Column(
+                                            [
+                                                self.following.content,
+                                                self.history.content,
+                                                self.top.content,
+                                            ],
+                                            alignment=ft.MainAxisAlignment.START,
+                                            spacing=40
 
-                                )
-                            ],
-                            alignment=ft.MainAxisAlignment.CENTER
-                        ),
-                        # width=100%,
-                        alignment=ft.alignment.center,
-                        bgcolor="#ffffff"
-                    )
-                ],
-                alignment=ft.MainAxisAlignment.CENTER
+                                        ),
+                                        # bgcolor="#000000",
+                                        height=1400
+
+                                    )
+                                ],
+                                alignment=ft.MainAxisAlignment.START
+                            ),
+                            # alignment=ft.alignment.center,
+                            bgcolor="#ffffff"
+                        )
+                    ],
+                    alignment=ft.MainAxisAlignment.START
+                ),
+                alignment=ft.alignment.center,
+                width=1400
             ),
             alignment=ft.alignment.center,
-            # width=1400
         )

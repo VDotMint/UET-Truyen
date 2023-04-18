@@ -5,6 +5,8 @@ from src.entity.comic_modules.comic_image_modules import ComicImageModule
 from src.entity.comic_modules.comic_getter import ComicGetters
 
 
+# class Info(ft.C)
+
 class Recommendation:
     """_summary_
     """
@@ -26,8 +28,13 @@ class Recommendation:
                         [
                             ft.Container(
                                 ft.Image(
-                                    src=ComicImageModule.get_comic_cover_img_link(comic_list[i])
+                                    src=ComicImageModule.get_comic_cover_img_link(comic_list[i]),
+                                    width=250,
+                                    height=333
                                 ),
+                                width=250,
+                                height=333,
+                                bgcolor=ft.colors.WHITE,
                                 on_click=lambda e: print("Recommend clicked!"),
                             ),
                             ft.Container(
@@ -46,15 +53,18 @@ class Recommendation:
                                                     ft.Text(
                                                         "Chapters " + str(ComicGetters.get_comic_chapter_count(
                                                             comic_list[i])),
-                                                        size=12
+                                                        # size=12,
+                                                        color=ft.colors.WHITE
                                                     ),
                                                     padding=5,
+
                                                     on_click=lambda e: print("Chapter clicked!"),
                                                 ),
                                                 ft.Container(
                                                     ft.Text(
                                                         ComicGetters.get_comic_last_updated_delta(comic_list[i]),
-                                                        size=12
+                                                        # size=20,
+                                                        color=ft.colors.WHITE
                                                     ),
                                                     padding=5,
                                                 ),
@@ -66,7 +76,7 @@ class Recommendation:
                                     horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                                     alignment=ft.MainAxisAlignment.CENTER
                                 ),
-                                bgcolor=ft.colors.YELLOW
+                                bgcolor=ft.colors.BLACK
                             )
                         ],
                         horizontal_alignment=ft.CrossAxisAlignment.CENTER,
@@ -98,9 +108,9 @@ class Recommendation:
                 padding=5
             ),
             alignment=ft.alignment.center,
-            bgcolor=ft.colors.WHITE,
+            bgcolor=ft.colors.BLACK12,
             margin=ft.margin.all(0),
-            width=1250
+            width=1450
         )
         self.content = ft.Container(
             ft.Column(
@@ -110,6 +120,7 @@ class Recommendation:
             ),
             alignment=ft.alignment.center,
             bgcolor=ft.colors.WHITE,
+            padding=20
             # width=1250,
             # height=333
         )

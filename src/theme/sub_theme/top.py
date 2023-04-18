@@ -4,6 +4,7 @@ import flet as ft
 from src.entity.comic_modules.comic_getter import ComicGetters
 from src.entity.comic_modules.comic_ranking import ComicRanking
 from src.entity.comic_modules.comic_image_modules import ComicImageModule
+from src.theme.sub_theme.extra import SmallCard, CardType
 
 ACTIVE_BG_COLOR = "#ffffff"
 BG_COLOR = "#CCCCCC"
@@ -15,7 +16,8 @@ class Top:
     """_summary_
     """
 
-    def __init__(self):
+    def __init__(self, app):
+        self.app = app
         self.list_display = None
         self.content = None
         self.tabs = None
@@ -35,82 +37,7 @@ class Top:
             items = []
             for i in range(count):
                 items.append(
-                    ft.Container(
-                        ft.Row(
-                            [
-                                ft.Row(
-                                    [
-                                        ft.Text(
-                                            "0" + str(i + 1),
-                                            color="#2980b9",
-                                            size=20,
-                                        ),
-                                        ft.Container(
-                                            ft.Image(
-                                                # src="assets/data/cover_img/100000.jpg",
-                                                src=ComicImageModule.get_comic_cover_img_link(top_comic_list[i][0])
-                                            ),
-                                            on_click=lambda e: print("Cover truyen clicked!"),
-                                        ),
-                                        ft.Column(
-                                            [
-                                                ft.Container(
-                                                    ft.Text(
-                                                        ComicGetters.get_comic_name(top_comic_list[i][0]),
-                                                        size=15,
-                                                        color="#000000",
-                                                    ),
-                                                    on_click=lambda e: print("Tên truyện clicked!"),
-                                                ),
-                                                ft.Row(
-                                                    [
-                                                        ft.Container(
-                                                            ft.Text(
-                                                                "Chapter " + str(ComicGetters.get_comic_chapter_count(
-                                                                    top_comic_list[i][0])),
-                                                                size=15,
-                                                                color="#000000",
-                                                            ),
-                                                            on_click=lambda e: print("Chapter clicked!"),
-                                                        ),
-                                                        ft.Container(
-                                                            ft.Row(
-                                                                [
-                                                                    ft.Icon(
-                                                                        name=ft.icons.REMOVE_RED_EYE,
-                                                                        color="#C0C0C0",
-                                                                        size=12
-                                                                    ),
-                                                                    ft.Text(
-                                                                        top_comic_list[i][1],
-                                                                        color="#C0C0C0",
-                                                                        size=15
-                                                                    ),
-                                                                ],
-                                                                spacing=0,
-                                                            )
-                                                        )
-                                                    ],
-                                                    width=180,
-                                                    alignment=ft.MainAxisAlignment.SPACE_BETWEEN
-                                                ),
-                                            ],
-                                            alignment=ft.MainAxisAlignment.SPACE_AROUND
-                                        ),
-                                    ]
-                                ),
-                            ],
-                            alignment=ft.MainAxisAlignment.SPACE_BETWEEN
-                        ),
-                        border=ft.border.only(
-                            left=ft.border.BorderSide(1, "#C0C0C0"),
-                            right=ft.border.BorderSide(1, "#C0C0C0"),
-                            bottom=ft.border.BorderSide(1, "#C0C0C0")
-                        ),
-                        height=80,
-                        width=300,
-                        padding=10
-                    )
+                    SmallCard(self.app, identy=top_comic_list[i][0], view_info=top_comic_list[i][1], card_type=CardType.TOP, order=i + 1)
                 )
             return items
 
@@ -119,6 +46,15 @@ class Top:
                 x.bgcolor = BG_COLOR
 
             e.control.bgcolor = ACTIVE_BG_COLOR
+
+            if e.control.content.value == "Top Tháng":
+                self.list_display.content.controls = items(6, self.monthly_rank_list)
+            elif e.control.content.value == "Top Tuần":
+                self.list_display.content.controls = items(6, self.weekly_rank_list)
+            elif e.control.content.value == "Top Ngày":
+                self.list_display.content.controls = items(6, self.daily_rank_list)
+
+            self.list_display.update()
 
             self.tabs.update()
 
@@ -182,7 +118,7 @@ class Top:
 
         self.list_display = ft.Container(
             ft.Column(
-                items(7, self.monthly_rank_list),
+                items(6, self.monthly_rank_list),
                 spacing=0
             ),
         )

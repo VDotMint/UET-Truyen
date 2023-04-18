@@ -9,8 +9,20 @@ TYPES = [
 "Truyện scan", "Việt Nam", "Webtoon", "Xuyên Không", "Yaoi", "Yuri", "16+"
 ]
 
+RANK_TYPES = [
+    "Top all",
+    "Top tháng",
+    "Top tuần",
+    "Top ngày",
+    "Truyện full",
+    "Yêu thích",
+    "Mới cập nhật",
+    "Truyện mới"
+]
+
 class SearchPage:
-    def __init__(self):
+    def __init__(self, app):
+        self.app = app
         self.content = None
         self.types = None
         self.create_content()
@@ -90,6 +102,18 @@ class SearchPage:
             ],
             alignment=ft.MainAxisAlignment.SPACE_BETWEEN
         )
+
+        def show_result(e):
+            for x in self.app.navbar.tabs.controls:
+                x.content.bgcolor = self.app.navbar.DEFAULT_COLOR
+
+            self.app.navbar.tabs.controls[6].content.bgcolor = self.app.navbar.ACTIVE_COLOR
+
+            self.app.content.content.controls[2] = self.app.filter_page.content
+            self.app.content.update()
+            self.app.filter_page.change_name("Kết quả tìm kiếm nâng cao")
+
+            self.app.content.update()
 
 
         self.content = ft.Container(
@@ -200,7 +224,8 @@ class SearchPage:
                                 "Tìm kiếm",
                                 shape=ft.RoundedRectangleBorder(radius=2),
                                 bgcolor="#ff9966",
-                                width=200
+                                width=200,
+                                on_click=show_result
                             ),
                             alignment=ft.alignment.center,
                             padding=40

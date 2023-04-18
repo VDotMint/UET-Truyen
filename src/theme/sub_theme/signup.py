@@ -57,6 +57,20 @@ class Signup:
                         ),
                         ft.Container(
                             ft.ElevatedButton(
+                                text="Đăng ký",
+                                bgcolor=ft.colors.YELLOW,
+                                color=ft.colors.BLACK,
+                                width=400,
+                                style=ft.ButtonStyle(
+                                    shape=ft.RoundedRectangleBorder(radius=2)
+                                ),
+                                # on_click=to_home
+
+                            ),
+                            alignment=ft.alignment.center
+                        ),
+                        ft.Container(
+                            ft.ElevatedButton(
                                 text="Đăng ký bằng Facebook",
                                 bgcolor=ft.colors.BLUE,
                                 color=ft.colors.WHITE,

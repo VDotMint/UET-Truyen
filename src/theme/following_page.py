@@ -7,11 +7,11 @@ from src.theme.sub_theme.top import Top
 
 
 class FollowingPage:
-    def __init__(self):
+    def __init__(self, app):
         self.recommendation = Recommendation()
-        self.top = Top()
-        self.following = ListView("Truyện đang theo dõi")
-        self.history = History()
+        self.top = Top(app)
+        self.following = ListView(app, "Truyện đang theo dõi")
+        self.history = History(app)
 
         self.content = None
         self.create_content()
@@ -23,7 +23,10 @@ class FollowingPage:
                     ft.Container(
                         ft.Row(
                             [
-                                self.following.content,
+                                ft.Container(
+                                    self.following.content,
+                                    height=1460
+                                ),
                                 ft.Container(
                                     ft.Column(
                                         [
@@ -35,7 +38,7 @@ class FollowingPage:
 
                                     ),
                                     # bgcolor="#000000",
-                                    height=1670
+                                    height=1400
 
                                 )
                             ],
