@@ -7,6 +7,7 @@ from src.entity.comic_modules.comic_getter import ComicGetters
 from src.entity.comic_modules.comic_image_modules import ComicImageModule
 import flet as ft
 
+from src.theme.sub_theme.chapter_view import ChapterView
 from src.theme.sub_theme.detail_view import DetailView
 
 
@@ -27,6 +28,19 @@ class Chapter(ft.Container):
     def detail(self, e):
         self.app.detail_page = DetailView(self.app, self.id)
         self.app.content.content.controls[2] = self.app.detail_page.content
+
+        for x in self.app.navbar.tabs.controls:
+            x.content.bgcolor = self.app.navbar.DEFAULT_COLOR
+
+        self.app.navbar.tabs.controls[0].content.bgcolor = self.app.navbar.ACTIVE_COLOR
+
+        self.app.content.update()
+
+    def read(self, e):
+        chapter = int(e.control.content.value.split(' ')[1])
+
+        self.app.chapter_page = ChapterView(self.app, self.id, chapter)
+        self.app.content.content.controls[2] = self.app.chapter_page.content
 
         for x in self.app.navbar.tabs.controls:
             x.content.bgcolor = self.app.navbar.DEFAULT_COLOR
@@ -70,7 +84,7 @@ class Chapter(ft.Container):
                                                             size=12
                                                         ),
                                                         # padding=5,
-                                                        on_click=lambda e: print("Chapter clicked!"),
+                                                        on_click=self.read,
                                                     ),
                                                     ft.Container(
                                                         ft.Text(

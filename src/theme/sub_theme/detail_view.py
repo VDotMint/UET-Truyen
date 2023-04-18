@@ -6,6 +6,7 @@ import flet as ft
 
 from src.entity.comic_modules.comic_getter import ComicGetters
 from src.entity.comic_modules.comic_image_modules import ComicImageModule
+from src.theme.sub_theme.chapter_view import ChapterView
 
 
 class DetailView:
@@ -21,11 +22,26 @@ class DetailView:
         self.date = ComicGetters.get_comic_last_updated_date(self.id)
         self.intro_content = ComicGetters.get_comic_content(self.id)
 
+
         self.view_count = ComicGetters.get_comic_view_count(self.id)
 
         self.content = None
         self.create_content()
 
+    def read(self, e):
+        chapter = 0
+
+        if e.control.content.value == "Đọc mới nhất":
+            chapter = self.max_chapter
+        elif e.control.content.value == "Đọc từ đầu":
+            chapter = 1
+        else:
+            chapter = int(e.control.content.value.split(' ')[1])
+
+        self.app.chapter_page = ChapterView(self.app, self.id, chapter)
+        self.app.content.content.controls[2] = self.app.chapter_page.content
+
+        self.app.content.update()
 
     def create_content(self):
         """
@@ -36,7 +52,10 @@ class DetailView:
             ft.Container(
                 ft.Row(
                     [
-                        ft.Text("Chapter " + str(i)),
+                        ft.Container(
+                            ft.Text("Chapter " + str(i)),
+                            on_click=self.read
+                        ),
                         ft.Text(ComicGetters.get_comic_last_updated_delta(self.id)),
                         ft.Text(self.view_count),
                     ],
@@ -235,7 +254,8 @@ class DetailView:
                                                             size=15
                                                         ),
                                                         width=80,
-                                                        alignment=ft.alignment.center
+                                                        alignment=ft.alignment.center,
+                                                        on_click=self.read
                                                     ),
                                                     bgcolor="#f0ad4e"
                                                 ),
@@ -247,7 +267,8 @@ class DetailView:
                                                             size=15
                                                         ),
                                                         width=100,
-                                                        alignment=ft.alignment.center
+                                                        alignment=ft.alignment.center,
+                                                        on_click=self.read
                                                     ),
                                                     bgcolor="#f0ad4e"
                                                 ),

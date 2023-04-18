@@ -10,7 +10,7 @@ from src.theme.sub_theme.top import Top
 class Home:
     def __init__(self, app):
         self.content = None
-        self.recommendation = Recommendation()
+        self.recommendation = Recommendation(app)
 
         self.latest = ListView(app, "Truyện mới cập nhật")
         self.following = Following(app)

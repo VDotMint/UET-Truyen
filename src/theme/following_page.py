@@ -8,7 +8,7 @@ from src.theme.sub_theme.top import Top
 
 class FollowingPage:
     def __init__(self, app):
-        self.recommendation = Recommendation()
+        self.recommendation = Recommendation(app)
         self.top = Top(app)
         self.following = ListView(app, "Truyện đang theo dõi")
         self.history = History(app)

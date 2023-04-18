@@ -4,6 +4,7 @@ import flet as ft
 
 from src.entity.comic_modules.comic_getter import ComicGetters
 from src.entity.comic_modules.comic_image_modules import ComicImageModule
+from src.theme.sub_theme.chapter_view import ChapterView
 from src.theme.sub_theme.detail_view import DetailView
 
 
@@ -48,7 +49,15 @@ class SmallCard(ft.Container):
         self.app.content.update()
 
     def read(self, e):
-        pass
+        self.app.chapter_page = ChapterView(self.app, self.id, self.max_chapter)
+        self.app.content.content.controls[2] = self.app.chapter_page.content
+
+        for x in self.app.navbar.tabs.controls:
+            x.content.bgcolor = self.app.navbar.DEFAULT_COLOR
+
+        self.app.navbar.tabs.controls[0].content.bgcolor = self.app.navbar.ACTIVE_COLOR
+
+        self.app.content.update()
 
     def create_content(self):
 
@@ -104,7 +113,7 @@ class SmallCard(ft.Container):
                                                 size=10,
                                                 color=ft.colors.BLACK54,
                                             ),
-                                            on_click=lambda e: print("Đọc tiếp clicked!"),
+                                            on_click=self.read,
                                         ),
                                     ],
                                     alignment=ft.MainAxisAlignment.SPACE_AROUND

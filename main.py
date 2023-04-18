@@ -14,6 +14,7 @@ from src.theme.home import Home
 from src.theme.hot import Hot
 from src.theme.navbar import *
 from src.theme.search import SearchPage
+from src.theme.sub_theme.chapter_view import ChapterView
 from src.theme.sub_theme.detail_view import DetailView
 from src.theme.sub_theme.list_view import *
 from src.theme.sub_theme.login import Login
@@ -45,6 +46,7 @@ class App:
         self.search_page = SearchPage(self)
         self.filter_page = FilterPage(self)
         self.detail_page = DetailView(self, 100000)
+        self.chapter_page = ChapterView(self, 100000)
 
         self.login = Login(self)
         self.signup = Signup(self)

@@ -2,7 +2,7 @@ from settings import *
 from src.theme.footer import *
 from src.theme.header import *
 from src.theme.navbar import *
-from src.theme.sub_theme.chapter import Chapter
+from src.theme.sub_theme.chapter_view import Chapter
 from src.theme.sub_theme.login import *
 from src.theme.sub_theme.signup import *
 from src.theme.sub_theme.recommendation import *
@@ -19,7 +19,7 @@ class App:
         # self.chapter = Chapter()
         self.login = Login()
         self.signup = Signup()
-        self.recommendation = Recommendation()
+        self.recommendation = Recommendation(app)
         self.following = Following()
         self.top = Top()
         self.detail_view = DetailView()

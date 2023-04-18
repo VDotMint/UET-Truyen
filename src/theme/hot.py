@@ -7,7 +7,7 @@ from src.theme.sub_theme.top import Top
 
 class Hot:
     def __init__(self, app):
-        self.recommendation = Recommendation()
+        self.recommendation = Recommendation(app)
         self.top = Top(app)
         self.hot = ListView(app, "Truyện hot nhất")
 

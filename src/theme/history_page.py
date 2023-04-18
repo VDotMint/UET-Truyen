@@ -9,7 +9,7 @@ from src.theme.sub_theme.top import Top
 
 class HistoryPage:
     def __init__(self, app):
-        self.recommendation = Recommendation()
+        self.recommendation = Recommendation(app)
         self.top = Top(app)
         self.history = ListView(app, "Lịch sử đọc truyện")
         self.following = Following(app)
