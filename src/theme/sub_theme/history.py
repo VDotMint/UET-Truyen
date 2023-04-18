@@ -4,84 +4,39 @@ from turtle import bgcolor
 
 import flet as ft
 
+from src.theme.sub_theme.extra import SmallCard
 
 class History:
     """_summary_
     """
 
-    def __init__(self):
+    def __init__(self, app):
         self.content = None
+
+        self.app = app
+        self.history_list = [100006, 100004, 100007]
         self.create_content()
+
 
     def create_content(self):
         """
         iterate truyện
         """
-        def items(count):
+
+        def items(count, comic_list):
             items = []
-            for i in range(1, count + 1):
-                items.append(
-                    ft.Container(
-                        ft.Row(
-                            [
-                                ft.Row(
-                                    [
-                                        ft.Container(
-                                            ft.Image(
-                                                src="assets/data/cover_img/100000.jpg",
-                                            ),
-                                            on_click=lambda e: print("Cover truyen clicked!"),
-                                        ),
-                                        ft.Column(
-                                            [
-                                                ft.Container(
-                                                    ft.Text(
-                                                        "Tên truyện",
-                                                        size=15,
-                                                        color="#000000",
-                                                    ),
-                                                    on_click=lambda e: print("Tên truyện clicked!"),
-                                                ),
-                                                ft.Container(
-                                                    ft.Text(
-                                                        "Chapter xx",
-                                                        size=15,
-                                                        color="#000000",
-                                                    ),
-                                                    on_click=lambda e: print("Chapter clicked!"),
-                                                ),
-                                                ft.Container(
-                                                    ft.Text(
-                                                        "Đọc tiếp Chapter xx",
-                                                        size=10,
-                                                        color=ft.colors.BLACK54,
-                                                    ),
-                                                    on_click=lambda e: print("Đọc tiếp clicked!"),
-                                                ),
-                                            ],
-                                            alignment=ft.MainAxisAlignment.SPACE_AROUND
-                                        ),
-                                    ]
-                                ),
-                                ft.Text(
-                                    "Bao lâu trước",
-                                    size=10,
-                                    color="#C0C0C0"
-                                )
-                            ],
-                            alignment=ft.MainAxisAlignment.SPACE_BETWEEN
-                        ),
-                        border=ft.border.only(
-                            left=ft.border.BorderSide(1,"#C0C0C0"),
-                            right=ft.border.BorderSide(1, "#C0C0C0"),
-                            bottom=ft.border.BorderSide(1, "#C0C0C0")
-                        ),
-                        height=80,
-                        width=300,
-                        padding=10
-                    )
-                )
+            for i in range(count):
+                items.append(SmallCard(self.app, comic_list[i]))
             return items
+
+        def change_page(e):
+            for x in self.app.navbar.tabs.controls:
+                x.content.bgcolor = self.app.navbar.DEFAULT_COLOR
+
+            self.app.navbar.tabs.controls[3].content.bgcolor = self.app.navbar.ACTIVE_COLOR
+
+            self.app.content.content.controls[2] = self.app.history_page.content
+            self.app.content.update()
 
         following = ft.Container(
             ft.Container(
@@ -101,17 +56,17 @@ class History:
                                             color="#000000",
                                             size=10
                                         ),
-                                        on_click=lambda e: print("Xem tất cả clicked!"),
+                                        on_click=change_page,
                                     )
                                 ],
                                 alignment=ft.MainAxisAlignment.SPACE_AROUND
                             ),
                             height=50,
                             width=300,
-                            border=ft.border.all(1,"#C0C0C0")
+                            border=ft.border.all(1, "#C0C0C0")
                         ),
                         ft.Column(
-                            items(3),
+                            items(len(self.history_list), self.history_list),
                             spacing=0
                         ),
                     ],

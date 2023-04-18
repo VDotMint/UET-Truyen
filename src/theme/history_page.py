@@ -8,11 +8,11 @@ from src.theme.sub_theme.top import Top
 
 
 class HistoryPage:
-    def __init__(self):
-        self.recommendation = Recommendation()
-        self.top = Top()
-        self.history = ListView("Lịch sử đọc truyện")
-        self.following = Following()
+    def __init__(self, app):
+        self.recommendation = Recommendation(app)
+        self.top = Top(app)
+        self.history = ListView(app, "Lịch sử đọc truyện")
+        self.following = Following(app)
 
         self.content = None
         self.create_content()
@@ -24,7 +24,10 @@ class HistoryPage:
                     ft.Container(
                         ft.Row(
                             [
-                                self.history.content,
+                                ft.Container(
+                                    self.history.content,
+                                    height=1460
+                                ),
                                 ft.Container(
                                     ft.Column(
                                         [
@@ -36,7 +39,7 @@ class HistoryPage:
 
                                     ),
                                     # bgcolor="#000000",
-                                    height=1670
+                                    height=1400
 
                                 )
                             ],

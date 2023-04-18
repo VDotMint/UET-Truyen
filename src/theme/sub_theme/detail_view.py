@@ -4,73 +4,77 @@ from turtle import bgcolor
 
 import flet as ft
 
+from src.entity.comic_modules.comic_getter import ComicGetters
+from src.entity.comic_modules.comic_image_modules import ComicImageModule
+from src.theme.sub_theme.chapter_view import ChapterView
+
 
 class DetailView:
     """_summary_
     """
 
-    def __init__(self):
+    def __init__(self, app, id):
+        self.app = app
+        self.id = id
+
+        self.name = ComicGetters.get_comic_name(self.id)
+        self.max_chapter = ComicGetters.get_comic_chapter_count(self.id)
+        self.date = ComicGetters.get_comic_last_updated_date(self.id)
+        self.intro_content = ComicGetters.get_comic_content(self.id)
+
+
+        self.view_count = ComicGetters.get_comic_view_count(self.id)
+
         self.content = None
         self.create_content()
+
+    def read(self, e):
+        chapter = 0
+
+        if e.control.content.value == "Đọc mới nhất":
+            chapter = self.max_chapter
+        elif e.control.content.value == "Đọc từ đầu":
+            chapter = 1
+        else:
+            chapter = int(e.control.content.value.split(' ')[1])
+
+        self.app.chapter_page = ChapterView(self.app, self.id, chapter)
+        self.app.content.content.controls[2] = self.app.chapter_page.content
+
+        self.app.content.update()
 
     def create_content(self):
         """
         iterate truyện
         """
 
-        def items(count):
-            items = []
-            for i in range(1, count + 1):
-                items.append(
+        self.chapter_list = [
+            ft.Container(
+                ft.Row(
+                    [
+                        ft.Container(
+                            ft.Text("Chapter " + str(i)),
+                            on_click=self.read
+                        ),
+                        ft.Text(ComicGetters.get_comic_last_updated_delta(self.id)),
+                        ft.Text(self.view_count),
+                    ],
+                    alignment=ft.MainAxisAlignment.SPACE_BETWEEN
+                ),
 
-                )
-            return items
+                # padding=20
+                # bgcolor=ft.colors.BLACK12
+            )
+            for i in range(self.max_chapter, 0, -1)
+        ]
+
 
         detail_view = ft.Container(
             ft.Column(
                 [
                     ft.Container(
-                        ft.Row(
-                            [
-                                ft.Container(
-                                    ft.Text(
-                                        "Trang trủ",
-                                        size=15,
-                                        color="#288ad6",
-                                    ),
-                                    on_click=lambda e: print("Trang trủ clicked!"),
-                                ),
-                                ft.Icon(
-                                    color="#288ad6",
-                                    name=ft.icons.ARROW_RIGHT
-                                ),
-                                ft.Container(
-                                    ft.Text(
-                                        "Thể loại",
-                                        size=15,
-                                        color="#288ad6",
-                                    ),
-                                    on_click=lambda e: print("Thể loại clicked!"),
-                                ),
-                                ft.Icon(
-                                    color="#288ad6",
-                                    name=ft.icons.ARROW_RIGHT
-                                ),
-                                ft.Container(
-                                    ft.Text(
-                                        "Tên truyện",
-                                        size=15,
-                                        color="#288ad6",
-                                    ),
-                                    on_click=lambda e: print("Tên truyện clicked!"),
-                                ),
-                            ],
-                        ),
-                        padding=ft.padding.all(10),
-                    ),
-                    ft.Container(
                         ft.Text(
-                            "Tên truyện",
+                            self.name,
                             color="#000000",
                             size=30
                         ),
@@ -78,7 +82,7 @@ class DetailView:
                     ),
                     ft.Container(
                         ft.Text(
-                            "[Cập nhật lúc: hh:mm dd/mm/yyyy]",
+                            f"[Cập nhật lúc: {self.date}]",
                             color="#777676",
                             size=15
                         ),
@@ -89,7 +93,7 @@ class DetailView:
                             [
                                 ft.Container(
                                     ft.Image(
-                                        src="assets/data/cover_img/100000.jpg",
+                                        src=ComicImageModule.get_comic_cover_img_link(self.id),
                                         width=230
                                     ),
                                     margin=ft.margin.only(right=20)
@@ -109,8 +113,7 @@ class DetailView:
                                                 ),
                                                 ft.Container(
                                                     ft.Text(
-                                                        "Chú tôi ở dị giới, Isekai Uncle, My Uncle in Another World, "
-                                                        "Ojisan in Another World, 異世界おじさん",
+                                                        ComicGetters.get_comic_name(self.id),
                                                         color="#777676",
                                                         size=15
                                                     ),
@@ -178,7 +181,7 @@ class DetailView:
                                                         [
                                                             ft.Container(
                                                                 ft.Text(
-                                                                    "Thể loại",
+                                                                    ", ".join(ComicGetters.get_comic_type(self.id)),
                                                                     color="#288ad6",
                                                                     size=15
                                                                 ),
@@ -205,7 +208,7 @@ class DetailView:
                                                 ),
                                                 ft.Container(
                                                     ft.Text(
-                                                        "2.370.684",
+                                                        self.view_count,
                                                         color="#777676",
                                                         size=15
                                                     )
@@ -251,7 +254,8 @@ class DetailView:
                                                             size=15
                                                         ),
                                                         width=80,
-                                                        alignment=ft.alignment.center
+                                                        alignment=ft.alignment.center,
+                                                        on_click=self.read
                                                     ),
                                                     bgcolor="#f0ad4e"
                                                 ),
@@ -263,7 +267,8 @@ class DetailView:
                                                             size=15
                                                         ),
                                                         width=100,
-                                                        alignment=ft.alignment.center
+                                                        alignment=ft.alignment.center,
+                                                        on_click=self.read
                                                     ),
                                                     bgcolor="#f0ad4e"
                                                 ),
@@ -302,12 +307,7 @@ class DetailView:
                     ),
                     ft.Container(
                         ft.Text(
-                            "Cô cam tâm tình nguyện làm một con rối của gia tộc, trở thành một sát thủ gián điệp, "
-                            "nhưng cuối cùng cô lại phát hiện tất cả chỉ là trò lừa đảo mà gia tộc và đám đàn ông "
-                            "dựng nên để lợi dụng cô! Sau khi rơi xuống biển chết đi, chính nhờ năng lượng Huyết Ngọc "
-                            "Phượng Hoàng đã khiến cô sống lại trong thân xác của một cô gái có hoàn cảnh tương tự – "
-                            "Cố Ninh. Để báo thù cho cả kiếp trước và kiếp này, cô quyết đoán trở về, bắt đầu gầy "
-                            "dựng sự nghiệp riêng, kể từ đây, giới kinh doanh lại xuất hiện thêm một huyền thoại mới!",
+                            self.intro_content,
                             size=15,
                             color="#000000"
                         ),
@@ -336,6 +336,35 @@ class DetailView:
                         thickness=2,
                         height=2
                     ),
+                    ft.Container(
+                        ft.Row(
+                            [
+                                ft.Text(
+                                    "Số chương",
+                                    weight=ft.FontWeight.BOLD
+                                ),
+                                ft.Text(
+                                    "Cập nhật",
+                                    weight=ft.FontWeight.BOLD
+                                ),
+                                ft.Text(
+                                    "Lượt xem",
+                                    weight=ft.FontWeight.BOLD
+                                ),
+
+                            ],
+                            alignment=ft.MainAxisAlignment.SPACE_BETWEEN
+                        ),
+                        padding=10
+                    ),
+
+                    ft.Container(
+                        ft.Column(
+                            self.chapter_list
+                        ),
+                        alignment=ft.alignment.top_left,
+                        padding=10
+                    )
                 ],
                 horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                 spacing=0
@@ -346,11 +375,8 @@ class DetailView:
             width=700
         )
         self.content = ft.Container(
-            ft.Column(
-                [
-                    detail_view
-                ],
-            ),
+            detail_view,
             alignment=ft.alignment.center,
-            bgcolor=ft.colors.BLACK,
+            bgcolor=ft.colors.BLACK12,
+            padding=30
         )

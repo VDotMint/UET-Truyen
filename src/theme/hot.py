@@ -6,10 +6,10 @@ from src.theme.sub_theme.top import Top
 
 
 class Hot:
-    def __init__(self):
-        self.recommendation = Recommendation()
-        self.top = Top()
-        self.hot = ListView("Truyện hot nhất")
+    def __init__(self, app):
+        self.recommendation = Recommendation(app)
+        self.top = Top(app)
+        self.hot = ListView(app, "Truyện hot nhất")
 
         self.content = None
         self.create_content()
@@ -22,7 +22,10 @@ class Hot:
                     ft.Container(
                         ft.Row(
                             [
-                                self.hot.content,
+                                ft.Container(
+                                    self.hot.content,
+                                    height=1460
+                                ),
                                 ft.Container(
                                     ft.Column(
                                         [
@@ -33,7 +36,7 @@ class Hot:
 
                                     ),
                                     # bgcolor="#000000",
-                                    height=1670
+                                    height=1400
 
                                 )
                             ],
@@ -44,8 +47,9 @@ class Hot:
                         bgcolor="#ffffff"
                     )
                 ],
-                alignment=ft.MainAxisAlignment.CENTER
+                alignment=ft.MainAxisAlignment.CENTER,
+                width=1400
             ),
             alignment=ft.alignment.center,
-            # width=1400
+
         )

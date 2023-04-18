@@ -2,34 +2,78 @@
     """
 import os
 import flet as ft
+
+from src.entity.comic_modules.comic_getter import ComicGetters
 from src.entity.comic_modules.comic_image_modules import ComicImageModule
 
 
-class Chapter:
+class ChapterView:
     """_summary_
     """
 
-    def __init__(self, path):
-        self.name = "Vạn Cổ Tối Cường Tông"
-        self.chapter = 1
-        self.total_chapters = 20
-        # self.path = os.path.join(path, "assets/data/100000/1")
+    def __init__(self, app, id, chapter=1):
+        self.app = app
+        self.id = id
+        self.chapter = chapter
+        self.dropdown = None
+        self.name = ComicGetters.get_comic_name(id)
 
-        # self.images = os.listdir(self.path)
-        # self.images = [os.path.join(self.path, f) for f in self.images]
-        self.images = ComicImageModule.get_comic_content_images(100000, 1)
+        self.total_chapters = ComicGetters.get_comic_chapter_count(id)
+
+        self.images = ComicImageModule.get_comic_content_images(self.id, self.chapter)
 
         self.content = None
         self.create_content()
+
+    def dec(self, e):
+        self.chapter = 1 + (self.chapter - 1 + self.total_chapters - 1) % self.total_chapters
+        self.dropdown.content.value = "Chapter " + str(self.chapter)
+        self.read(e, False)
+
+    def inc(self, e):
+        self.chapter = 1 + (self.chapter - 1 + self.total_chapters + 1) % self.total_chapters
+        self.dropdown.content.value = "Chapter " + str(self.chapter)
+        self.read(e, False)
+
+    def read(self, e, flag=True):
+        if flag:
+            self.chapter = int(e.control.value.split(' ')[1])
+
+        self.app.chapter_page = ChapterView(self.app, self.id, self.chapter)
+        self.app.content.content.controls[2] = self.app.chapter_page.content
+
+        for x in self.app.navbar.tabs.controls:
+            x.content.bgcolor = self.app.navbar.DEFAULT_COLOR
+
+        self.app.navbar.tabs.controls[0].content.bgcolor = self.app.navbar.ACTIVE_COLOR
+
+        self.app.content.update()
 
     def create_content(self):
         """_summary_
         """
         image_display = ft.Container(
             ft.Column(
-                [ft.Image(src=path) for path in self.images]
+                [ft.Image(src=path) for path in self.images],
             ),
             alignment=ft.alignment.center,
+            bgcolor=ft.colors.BLACK
+        )
+
+        self.dropdown = ft.Container(
+            ft.Dropdown(
+                width=300,
+                options=[
+                    ft.dropdown.Option(
+                        "Chapter " + str(i))
+                    for i in range(self.total_chapters, 0, -1)
+                ],
+                value="Chapter " +
+                      str(self.chapter),
+                color="#000000",
+                bgcolor="#ffffff",
+                on_change=self.read
+            ),
         )
 
         info = ft.Container(
@@ -47,6 +91,9 @@ class Chapter:
 
                             ),
                             padding=20
+                        ),
+                        ft.Container(
+                            ft.Divider()
                         ),
                         ft.Container(
                             ft.Column(
@@ -87,7 +134,7 @@ class Chapter:
                                                 ft.Icon(name="info"),
                                                 ft.Text(
                                                     value="Sử dụng mũi tên trái (←) hoặc phải (→)" +
-                                                    " để chuyển chapter",
+                                                          " để chuyển chapter",
                                                 )
                                             ],
                                             alignment=ft.MainAxisAlignment.CENTER
@@ -104,21 +151,10 @@ class Chapter:
                                             ft.IconButton(
                                                 icon="repeat", icon_color="#ff4d4d"),
                                             ft.ElevatedButton(
-                                                text="<", color="#ffffff", bgcolor="#ff4d4d"),
-                                            ft.Dropdown(
-                                                width=300,
-                                                options=[
-                                                    ft.dropdown.Option(
-                                                        "Chapter " + str(i))
-                                                    for i in range(self.total_chapters, 0, -1)
-                                                ],
-                                                value="Chapter " +
-                                                str(self.chapter),
-                                                color="#000000",
-                                                bgcolor="#ffffff",
-                                            ),
+                                                text="<", color="#ffffff", bgcolor="#ff4d4d", on_click=self.dec),
+                                            self.dropdown,
                                             ft.ElevatedButton(
-                                                text=">", color="#ffffff", bgcolor="#ff4d4d"),
+                                                text=">", color="#ffffff", bgcolor="#ff4d4d", on_click=self.inc),
                                             ft.ElevatedButton(
                                                 text="Theo dõi", color="#ffffff", bgcolor="#00cc66")
                                         ],
@@ -128,7 +164,7 @@ class Chapter:
                             ),
                             alignment=ft.alignment.center,
                             padding=20,
-                            bgcolor=ft.colors.BLACK12
+                            bgcolor=ft.colors.WHITE
                         ),
 
                     ],
@@ -148,5 +184,5 @@ class Chapter:
                 ]
             ),
             alignment=ft.alignment.center,
-            bgcolor=ft.colors.BLACK
+            bgcolor=ft.colors.BLACK12
         )

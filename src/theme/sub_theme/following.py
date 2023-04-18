@@ -5,14 +5,18 @@ from src.entity.comic_modules.comic_image_modules import ComicImageModule
 from src.entity.comic_modules.comic_getter import ComicGetters
 import flet as ft
 
+from src.theme.sub_theme.extra import SmallCard
+
 
 class Following:
     """_summary_
     """
 
-    def __init__(self):
+    def __init__(self, app):
         self.content = None
-        self.following_list = [100004, 100008, 100005, 100006]
+
+        self.app = app
+        self.following_list = [100004, 100008, 100005, 100006, 100001]
 
         self.create_content()
 
@@ -23,69 +27,17 @@ class Following:
         def items(count, comic_list):
             items = []
             for i in range(count):
-                items.append(
-                    ft.Container(
-                        ft.Row(
-                            [
-                                ft.Row(
-                                    [
-                                        ft.Container(
-                                            ft.Image(
-                                                src=ComicImageModule.get_comic_cover_img_link(comic_list[i]),
-                                            ),
-                                            on_click=lambda e: print("Cover truyen clicked!"),
-                                        ),
-                                        ft.Column(
-                                            [
-                                                ft.Container(
-                                                    ft.Text(
-                                                        ComicGetters.get_comic_name(comic_list[i]),
-                                                        size=15,
-                                                        color="#000000",
-                                                    ),
-                                                    on_click=lambda e: print("Tên truyện clicked!"),
-                                                ),
-                                                ft.Container(
-                                                    ft.Text(
-                                                        "Chapters " + str(ComicGetters.get_comic_chapter_count(
-                                                            comic_list[i])),
-                                                        size=15,
-                                                        color="#000000",
-                                                    ),
-                                                    on_click=lambda e: print("Chapter clicked!"),
-                                                ),
-                                                ft.Container(
-                                                    ft.Text(
-                                                        "Đọc tiếp Chapter xx",
-                                                        size=10,
-                                                        color=ft.colors.BLACK54,
-                                                    ),
-                                                    on_click=lambda e: print("Đọc tiếp clicked!"),
-                                                ),
-                                            ],
-                                            alignment=ft.MainAxisAlignment.SPACE_AROUND
-                                        ),
-                                    ]
-                                ),
-                                ft.Text(
-                                    ComicGetters.get_comic_last_updated_delta(comic_list[i]),
-                                    size=10,
-                                    color="#C0C0C0"
-                                )
-                            ],
-                            alignment=ft.MainAxisAlignment.SPACE_BETWEEN
-                        ),
-                        border=ft.border.only(
-                            left=ft.border.BorderSide(1,"#C0C0C0"),
-                            right=ft.border.BorderSide(1, "#C0C0C0"),
-                            bottom=ft.border.BorderSide(1, "#C0C0C0")
-                        ),
-                        height=80,
-                        width=300,
-                        padding=10
-                    )
-                )
+                items.append(SmallCard(self.app, comic_list[i]))
             return items
+
+        def change_page(e):
+            for x in self.app.navbar.tabs.controls:
+                x.content.bgcolor = self.app.navbar.DEFAULT_COLOR
+
+            self.app.navbar.tabs.controls[2].content.bgcolor = self.app.navbar.ACTIVE_COLOR
+
+            self.app.content.content.controls[2] = self.app.following_page.content
+            self.app.content.update()
 
         following = ft.Container(
             ft.Container(
@@ -105,7 +57,7 @@ class Following:
                                             color="#000000",
                                             size=10
                                         ),
-                                        on_click=lambda e: print("Xem tất cả clicked!"),
+                                        on_click=change_page,
                                     )
                                 ],
                                 alignment=ft.MainAxisAlignment.SPACE_AROUND

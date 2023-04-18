@@ -2,7 +2,34 @@
     """
 import flet as ft
 
+from src.theme.search import TYPES, RANK_TYPES
+
+
 # ACTIVE_TEXT_COLOR = "#00ccff"
+
+
+class FilterChoice(ft.PopupMenuItem):
+    def __init__(self, app, name):
+        super().__init__()
+        self.name = name
+        self.app = app
+        self.text = name
+
+        self.on_click = self.hehe
+
+    def hehe(self, e):
+        for x in self.app.navbar.tabs.controls:
+            x.content.bgcolor = self.app.navbar.DEFAULT_COLOR
+
+        self.app.navbar.tabs.controls[6].content.bgcolor = self.app.navbar.ACTIVE_COLOR
+
+        self.app.content.content.controls[2] = self.app.filter_page.content
+        self.app.content.update()
+        self.app.filter_page.change_name("Kết quả tìm kiếm: " + self.name)
+
+        self.app.content.update()
+
+
 
 class NavBar:
     """_summary_
@@ -11,6 +38,8 @@ class NavBar:
     DEFAULT_COLOR = "#e0e0eb"
 
     def __init__(self, app):
+        self.rank_filter = None
+        self.filter_choices = None
         self.app = app
         self.tabs = None
         self.navbar = None
@@ -44,6 +73,9 @@ class NavBar:
 
             self.tabs.update()
             self.app.content.update()
+
+        self.filter_choices = [FilterChoice(self.app, x) for x in TYPES]
+        self.rank_filter = [FilterChoice(self.app, x) for x in RANK_TYPES]
 
         self.tabs = ft.Row(
             [
@@ -84,22 +116,40 @@ class NavBar:
                     )
                 ),
                 ft.Container(
-                    ft.FloatingActionButton(
-                        text="THỂ LOẠI",
-                        shape=ft.RoundedRectangleBorder(radius=2),
-                        bgcolor=self.DEFAULT_COLOR,
-                        width=100,
-                        on_click=change_page,
-                    ),
+                    ft.PopupMenuButton(
+                        ft.Container(
+                            content=ft.Text(
+                                "THỂ LOẠI",
+                                weight=ft.FontWeight.W_500
+                            ),
+                            border_radius=2,
+                            bgcolor=self.DEFAULT_COLOR,
+                            shape=ft.BoxShape(ft.BoxShape.RECTANGLE),
+                            # on_click=change_page,
+                            width=100,
+                            height=50,
+                            alignment=ft.alignment.center
+                        ),
+                        items=self.filter_choices
+                    )
                 ),
                 ft.Container(
-                    ft.FloatingActionButton(
-                        text="XẾP HẠNG",
-                        shape=ft.RoundedRectangleBorder(radius=2),
-                        bgcolor=self.DEFAULT_COLOR,
-                        on_click=change_page,
-                        width=100,
-                    ),
+                    ft.PopupMenuButton(
+                        ft.Container(
+                            content=ft.Text(
+                                "XẾP HẠNG",
+                                weight=ft.FontWeight.W_500
+                            ),
+                            border_radius=2,
+                            bgcolor=self.DEFAULT_COLOR,
+                            shape=ft.BoxShape(ft.BoxShape.RECTANGLE),
+                            # on_click=change_page,
+                            width=100,
+                            height=50,
+                            alignment=ft.alignment.center
+                        ),
+                        items=self.rank_filter
+                    )
                 ),
                 ft.Container(
                     ft.FloatingActionButton(
