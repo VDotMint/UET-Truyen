@@ -10,7 +10,6 @@ class Comic:
     # YOU MUST ENSURE THAT THIS FUNCTION HAS BEEN CALLED WHEN THE APP RUNS!
     @classmethod
     def load_comic_list(cls):
-        pyre_base.sign_in("21020649@vnu.edu.vn", "DummyPassword169!")
         cls.update_local_comic_list()
 
     # This should be called after every update of the Firebase data;

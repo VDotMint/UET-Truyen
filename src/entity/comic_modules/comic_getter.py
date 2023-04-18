@@ -10,7 +10,10 @@ class ComicGetters:
 
     @classmethod
     def get_comic_aliases(cls, comic_id):
-        return Comic.list_of_comics[str(comic_id)]["aliases"]
+        if "alias" in Comic.list_of_comics.keys():
+            return Comic.list_of_comics[str(comic_id)]["aliases"]
+        return ["Không có"]
+        # return Comic.list_of_comics[str(comic_id)]["aliases"]
 
     @classmethod
     def get_comic_view_count(cls, comic_id):
