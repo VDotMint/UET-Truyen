@@ -1,5 +1,5 @@
 import flet as ft
-# from ....src.firebase import create_user
+from pyre_base import sign_up
 
 
 class Signup:
@@ -18,9 +18,6 @@ class Signup:
         re_password = ft.TextField(
             label="Nhập lại mật khẩu"
         )
-
-        def print_content(e):
-            print(password.value, email.value, re_password.value)
 
         def to_login(e: ft.ContainerTapEvent):
             self.app.content.content.controls[2] = self.app.login.content
@@ -78,8 +75,8 @@ class Signup:
                                 width=400,
                                 style=ft.ButtonStyle(
                                     shape=ft.RoundedRectangleBorder(radius=2)
-                                )
-                                # on_click=create_user(email.value, password.value)
+                                ),
+                                on_click=lambda e: sign_up(email.value, password.value)
                             ),
                         ),
                         ft.Container(
