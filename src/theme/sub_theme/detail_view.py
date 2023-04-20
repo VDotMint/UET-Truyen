@@ -56,8 +56,8 @@ class DetailView:
                             ft.Text("Chapter " + str(i)),
                             on_click=self.read
                         ),
-                        ft.Text(ComicGetters.get_comic_last_updated_delta(self.id)),
-                        ft.Text(self.view_count),
+                        ft.Text(ComicGetters.get_comic_last_updated_delta(self.id, i)),
+                        ft.Text(ComicGetters.get_chapter_view_count(self.id, i)),
                     ],
                     alignment=ft.MainAxisAlignment.SPACE_BETWEEN
                 ),

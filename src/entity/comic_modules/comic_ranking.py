@@ -2,6 +2,7 @@ import math
 import time
 import random
 from src.entity.comic import *
+from src.entity.comic_modules.comic_getter import ComicGetters
 
 
 class ComicRanking:
@@ -28,7 +29,8 @@ class ComicRanking:
             comic_view_count_pairs.append(
                 [
                     comic,
-                    int(Comic.list_of_comics[comic]["view_count"] * (random.uniform(0, 20) / random_division_coefficient))
+                    int(ComicGetters.get_comic_view_count(comic) *
+                        (random.uniform(0, 20) / random_division_coefficient))
                 ]
             )
 

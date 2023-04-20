@@ -89,7 +89,7 @@ class Chapter(ft.Container):
                                                     ft.Container(
                                                         ft.Text(
                                                             ComicGetters.get_comic_last_updated_delta(
-                                                                self.info[0]),
+                                                                self.info[0], i),
                                                             size=12
                                                         ),
                                                         # padding=5,
@@ -125,7 +125,10 @@ class ListView:
     LATEST = 0
     HOT = 1
 
-    def __init__(self, app, name, sort_type=LATEST):
+    def __init__(self, app, name, comic_list_arg=None, sort_type=LATEST):
+        if comic_list_arg is None:
+            comic_list_arg = []
+
         self.app = app
         self.name = name
         self.sort_type = sort_type
@@ -140,11 +143,11 @@ class ListView:
         self.recommendation.content.content.controls[0].value = name
         self.content.update()
 
-
-
-    def create_content(self):
+    def create_content(self, custom_comic_list=None):
         """_summary_
         """
+        if custom_comic_list is None:
+            custom_comic_list = ComicQuery.sort_comics_on_recency()
 
         def items(count, recency_comic_list):
             items = []
@@ -164,7 +167,7 @@ class ListView:
                             size=30
                         ),
                         ft.Row(
-                            items(len(Comic.list_of_comics), ComicQuery.sort_comics_on_recency()),
+                            items(len(custom_comic_list), custom_comic_list),
                             alignment=ft.MainAxisAlignment.CENTER,
                             spacing=20,
                             wrap=True,

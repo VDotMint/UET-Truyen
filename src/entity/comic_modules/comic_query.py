@@ -1,5 +1,7 @@
 from src.entity.comic import *
+from src.entity.comic_modules.comic_getter import *
 from datetime import datetime
+
 
 # Functions for querying and searching the comic database
 class ComicQuery:
@@ -18,7 +20,7 @@ class ComicQuery:
     # Returns a list of Comic IDs sorted by recency
     # Leaving the comic_list parameter alone will return the entire catalogue of stories
     @classmethod
-    def sort_comics_on_recency(cls, comic_list=None):
+    def sort_comics_on_recency(cls, comic_list=None, return_count=None):
         if comic_list is None:
             comic_list = []
 
@@ -28,20 +30,22 @@ class ComicQuery:
             for comic_id in Comic.list_of_comics:
                 comic_recency_list.append(
                     [
-                        comic_id,
-                        datetime.fromisoformat(Comic.list_of_comics[comic_id]["last_updated"])
+                        str(comic_id),
+                        ComicGetters.get_comic_last_updated_date(str(comic_id))
+                        # datetime.fromisoformat(Comic.list_of_comics[str(comic_id)]["last_updated"])
                     ]
                 )
         else:
             for comic_id in comic_list:
                 comic_recency_list.append(
                     [
-                        comic_id,
-                        datetime.fromisoformat(Comic.list_of_comics[comic_id]["last_updated"])
+                        str(comic_id),
+                        ComicGetters.get_comic_last_updated_date(str(comic_id))
                     ]
                 )
 
         comic_recency_list.sort(key=lambda listo: listo[1], reverse=True)
 
+        if return_count is not None:
+            return comic_recency_list[:return_count]
         return comic_recency_list
-
