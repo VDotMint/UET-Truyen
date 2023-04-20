@@ -59,8 +59,9 @@ class App:
     def log_in(self):
         self.account_status = True
         # # Update user info hear ##############
+        # print(self.user.get_user_info())
 
-        self.user = None
+        # self.user = None
 
         self.header.content.content.content.controls[5] = self.header.account_header
         self.header.account_header.content.content.controls[0].value = "Dajunctic Vu"
@@ -69,6 +70,7 @@ class App:
     def sign_out(self, e: ft.ContainerTapEvent):
         self.account_status = False
         self.header.content.content.content.controls[5] = self.header.login_button
+        self.user = None
 
         # print(self.content.content.content.controls[5])
         self.header.content.content.content.update()
@@ -105,5 +107,5 @@ class App:
 
 if __name__ == '__main__':
     app = App()
-    ft.app(target=app.run, assets_dir="assets")
-    # ft.app(target=app.run, view=ft.WEB_BROWSER, assets_dir="assets")
+    # ft.app(target=app.run, assets_dir="assets")
+    ft.app(target=app.run, view=ft.WEB_BROWSER, assets_dir="assets")

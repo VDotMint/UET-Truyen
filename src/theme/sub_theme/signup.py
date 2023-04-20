@@ -1,5 +1,6 @@
 import flet as ft
 from pyre_base import sign_up
+from src.entity.user import UserWrapper
 
 
 class Signup:
@@ -18,6 +19,20 @@ class Signup:
         re_password = ft.TextField(
             label="Nhập lại mật khẩu"
         )
+
+        def to_home(e):
+            # # verified ##############
+            if password.value != re_password:
+                return
+
+            fb_user = sign_up(email.value, password.value)
+
+            if fb_user:
+                self.app.user = UserWrapper(fb_user)
+                self.app.content.content.controls[2] = self.app.home.content
+                self.app.content.update()
+
+                # self.app.sign()
 
         def to_login(e: ft.ContainerTapEvent):
             self.app.content.content.controls[2] = self.app.login.content
@@ -61,7 +76,7 @@ class Signup:
                                 style=ft.ButtonStyle(
                                     shape=ft.RoundedRectangleBorder(radius=2)
                                 ),
-                                # on_click=to_home
+                                on_click=to_home
 
                             ),
                             alignment=ft.alignment.center

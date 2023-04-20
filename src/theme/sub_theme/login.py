@@ -1,5 +1,8 @@
 import flet as ft
 
+from pyre_base import sign_in
+from src.entity.user import UserWrapper
+
 
 class Login:
     def __init__(self, app):
@@ -19,7 +22,13 @@ class Login:
 
         def to_home(e):
             # # verified ##############
+            email = self.content.content.content.controls[1].content.value
+            pwd = self.content.content.content.controls[2].content.value
+
+            fb_user = sign_in(email, pwd)
+
             if True:
+                # self.app.user = UserWrapper(fb_user)
                 self.app.content.content.controls[2] = self.app.home.content
                 self.app.content.update()
 
