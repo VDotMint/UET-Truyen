@@ -74,7 +74,8 @@ class ComicMaker:
 
         # Check to see if any files are not JPEG or PNG
         for link in list_of_chapter_pic_links:
-            if link[-3:] not in [".png", ".jpg"]:
+            if link[-3:] not in ["png", "jpg"]:
+                print("Unsupported image type!")
                 return "Unsupported image type!"
 
         index = 1

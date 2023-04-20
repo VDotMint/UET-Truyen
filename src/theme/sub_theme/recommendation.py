@@ -77,7 +77,8 @@ class Info(ft.Container):
                                     ),
                                     ft.Container(
                                         ft.Text(
-                                            ComicGetters.get_comic_last_updated_delta(self.id),
+                                            ComicGetters.get_comic_last_updated_delta(
+                                                self.id, ComicGetters.get_comic_chapter_count(self.id)),
                                             # size=20,
                                             color=ft.colors.WHITE
                                         ),

@@ -41,7 +41,7 @@ class ComicGetters:
 
     @classmethod
     def get_comic_chapter_count(cls, comic_id):
-        return len(Comic.list_of_comics[str(comic_id)]["chapters"])
+        return len(Comic.list_of_comics[str(comic_id)]["chapters"]) - 1
 
     @classmethod
     def get_comic_last_updated_date(cls, comic_id):
