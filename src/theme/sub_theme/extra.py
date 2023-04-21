@@ -109,7 +109,8 @@ class SmallCard(ft.Container):
                                         ),
                                         ft.Container(
                                             ft.Text(
-                                                "Đọc tiếp Chapter xx",
+                                                "Đọc tiếp Chapter " + str(
+                                                    ComicGetters.get_comic_chapter_count(self.id)),
                                                 size=10,
                                                 color=ft.colors.BLACK54,
                                             ),

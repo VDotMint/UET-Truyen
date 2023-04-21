@@ -58,7 +58,9 @@ class Info(ft.Container):
                             ft.Container(
                                 ft.Text(
                                     ComicGetters.get_comic_name(self.id),
-                                    size=15
+                                    size=15,
+                                    color=ft.colors.WHITE,
+                                    weight=ft.FontWeight.BOLD
                                 ),
                                 on_click=self.detail,
                             ),
@@ -92,7 +94,7 @@ class Info(ft.Container):
                         horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                         alignment=ft.MainAxisAlignment.CENTER
                     ),
-                    bgcolor=ft.colors.BLACK
+                    bgcolor="#2b2b2b"
                 )
             ],
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,

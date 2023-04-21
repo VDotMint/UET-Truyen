@@ -33,6 +33,9 @@ class ComicMaker:
             "content": comic_content,
             "view_count": 0,
             "last_updated": datetime.now().isoformat()[:-7],
+            "chapters": {
+                "fire_base_dumb": False
+            },
             "follower_count": 0,
             "chapter_count": 0
         }
