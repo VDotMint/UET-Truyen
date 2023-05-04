@@ -1,6 +1,8 @@
 # UET Truyen
 A Python UI application, utilizing the Flet framework, for reading and managing comics.
 
+<img width="600" alt="image" src="https://user-images.githubusercontent.com/80691699/236162437-eba5a4bf-8e45-4cb6-a1fd-04603988ceab.png">
+
 ## About the app
 - An application for reading and managing comics stored in an online repository
 - Makes use of Google Firebase and ImageKit.IO for storing comic datas
